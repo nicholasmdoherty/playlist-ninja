@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { HashRouter, Route } from "react-router-dom";
+import LoginPage from "./modules/spotify-sign-in/LoginPage";
+import SpotifyLogoutButton from "./modules/spotify-sign-in/SpotifyLogoutButton";
+import { getCookie } from "./common/constants";
+import "./App.css";
 
 function App() {
+  let loggedIn = false;
+  let token = getCookie("spotifyAccessToken");
+
+  if (token !== "") {
+    loggedIn = true;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+      <div className="d-flex" id="app-wrapper">
+        {loggedIn ? (
+          <div id="playlists-view-wrapper">
+            <h2> Logged in</h2>
+            <SpotifyLogoutButton />
+          </div>
+        ) : (
+          <LoginPage />
+        )}
+      </div>
+    </HashRouter>
   );
 }
 

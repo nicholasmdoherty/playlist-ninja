@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "camelcase-keys": "^6.0.1",
     "react": "^16.9.0",
+    "react-autobind": "^1.0.6",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "react-spotify-login": "^0.9.1"
   },
   "scripts": {
     "start": "react-scripts start",

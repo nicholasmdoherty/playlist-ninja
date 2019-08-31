@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SpotifyLogin from "react-spotify-login";
 import { spotifyScopes, setCookie } from "../../common/constants";
 import autoBind from "react-autobind";
-import { redirectURI, clientID } from "./constants";
+import { redirectURI, clientID } from "../../common/constants";
 import "./sign-in.css";
 
 class SpotifyLoginButton extends Component {

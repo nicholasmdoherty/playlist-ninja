@@ -7,7 +7,7 @@ class LoginPage extends Component {
     return (
       <div id="logged-out-wrapper">
         <div className="w-50 p-3 custom-card text-center">
-          <h3> Login to Playlists as Profiles</h3>
+          <h3> Login to Playlist Ninja</h3>
           <hr />
           <SpotifyLoginButton />
         </div>

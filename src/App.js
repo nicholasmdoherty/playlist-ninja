@@ -5,13 +5,16 @@ import SpotifyLogoutButton from "./modules/spotify-sign-in/SpotifyLogoutButton";
 import { getCookie } from "./common/constants";
 import "./App.css";
 import Navbar from "./common/components/Navbar";
+import { connect } from "react-redux";
+import { setSpotifyApiAction } from "./redux/actions/apiActions";
 
-function App() {
+function App(props) {
   let loggedIn = false;
   let token = getCookie("spotifyAccessToken");
 
   if (token !== "") {
     loggedIn = true;
+    props.setSpotifyApi(token);
   }
 
   return (
@@ -31,4 +34,15 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => {};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setSpotifyApi: accessToken => dispatch(setSpotifyApiAction(accessToken))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

@@ -9,8 +9,6 @@ export const setSpotifyApiAction = accessToken => dispatch => {
 
   spotifyApi.setAccessToken(accessToken);
 
-  debugger;
-
   dispatch({
     type: "SET_SPOTIFY_API",
     payload: spotifyApi

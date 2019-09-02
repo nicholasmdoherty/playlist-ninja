@@ -10,6 +10,13 @@
   min-height: 50px;
   background-image: linear-gradient(5deg, rgb(253, 231, 76), rgb(241, 154, 62));
   box-shadow: 2px 2px 5px 2px rgba(214, 137, 54, 0.5);
+  position: fixed;
+  z-index: 1000;
+}
+
+.main-app-nav-ghost {
+  width: 100vw;
+  min-height: 50px;
 }
 
 .main-nav-button {

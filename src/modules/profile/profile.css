@@ -1,0 +1,11 @@
+.profile-wrapper {
+  width: 100%;
+  background-color: azure;
+  margin-top: 7vh;
+}
+
+.profile-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -1,0 +1,19 @@
+.playlist-card-button-wrapper {
+  justify-content: space-between;
+}
+
+.playlist-card-content {
+  max-height: 50%;
+}
+
+.playlist-card-image {
+  width: 75%;
+  height: auto;
+}
+
+.playlist-card {
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

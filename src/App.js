@@ -7,6 +7,8 @@ import "./App.css";
 import Navbar from "./common/components/Navbar";
 import { connect } from "react-redux";
 import { setSpotifyApiAction } from "./redux/actions/apiActions";
+import Profile from "./modules/profile/Profile";
+import { Container, Row } from "react-bootstrap";
 
 function App(props) {
   let loggedIn = false;
@@ -23,8 +25,16 @@ function App(props) {
         {loggedIn ? (
           <div id="playlists-view-wrapper">
             <Navbar />
-            <h2> Logged in</h2>
-            <SpotifyLogoutButton />
+            <Container>
+              <Row>
+                <Profile />
+              </Row>
+
+              <Row>
+                <h2> Logged in</h2>
+                <SpotifyLogoutButton />
+              </Row>
+            </Container>
           </div>
         ) : (
           <LoginPage />

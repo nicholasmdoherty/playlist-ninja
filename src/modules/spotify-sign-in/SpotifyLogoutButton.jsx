@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { setCookie } from "../../common/constants";
+import { Button } from "react-bootstrap";
 import autoBind from "react-autobind";
 
 class SpotifyLogoutButton extends Component {
@@ -17,9 +18,15 @@ class SpotifyLogoutButton extends Component {
 
   render() {
     return (
-      <button className="btn btn-medium btn-danger" onClick={this.handleLogout}>
-        Log Out
-      </button>
+      <Button
+        variant="link"
+        onClick={this.handleLogout}
+        style={{ color: "red", width: "fit-content" }}
+      >
+        <p className="lead" style={{ fontSize: "1rem" }}>
+          Log Out
+        </p>
+      </Button>
     );
   }
 }

@@ -8,17 +8,19 @@ export default class Navbar extends Component {
     return (
       <div>
         <div className="main-app-nav">
-          <div className="main-nav-button">
-            <Link to="profile" className="text-dark">
-              <i
-                className={`far fa-address-card ${
-                  isBelowSmallBreakpoint()
-                    ? "main-nav-icon-phone"
-                    : "main-nav-icon-desktop"
-                }`}
-              />
-            </Link>
-          </div>
+          {!this.props.noButtons && (
+            <div className="main-nav-button">
+              <Link to="profile" className="text-dark">
+                <i
+                  className={`far fa-address-card ${
+                    isBelowSmallBreakpoint()
+                      ? "main-nav-icon-phone"
+                      : "main-nav-icon-desktop"
+                  }`}
+                />
+              </Link>
+            </div>
+          )}
 
           <div className="main-nav-button">
             <i
@@ -35,17 +37,19 @@ export default class Navbar extends Component {
             )}
           </div>
 
-          <div className="main-nav-button">
-            <Link to="playlist-builder" className="text-dark">
-              <i
-                className={`fa fa-sliders-h ${
-                  isBelowSmallBreakpoint()
-                    ? "main-nav-icon-phone"
-                    : "main-nav-icon-desktop"
-                }`}
-              />
-            </Link>
-          </div>
+          {!this.props.noButtons && (
+            <div className="main-nav-button">
+              <Link to="playlist-builder" className="text-dark">
+                <i
+                  className={`fa fa-sliders-h ${
+                    isBelowSmallBreakpoint()
+                      ? "main-nav-icon-phone"
+                      : "main-nav-icon-desktop"
+                  }`}
+                />
+              </Link>
+            </div>
+          )}
         </div>
         <div className="main-app-nav-ghost" />
       </div>

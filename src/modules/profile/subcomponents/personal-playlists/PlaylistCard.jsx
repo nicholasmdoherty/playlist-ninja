@@ -27,8 +27,8 @@ export default class PlaylistCard extends Component {
           </div>
 
           <div className="w-100 d-flex playlist-card-button-wrapper">
-            <Button variant="primary">Edit</Button>
             <Button variant="outline-danger">Unfollow</Button>
+            <Button variant="primary">Edit</Button>
           </div>
         </div>
       </Col>

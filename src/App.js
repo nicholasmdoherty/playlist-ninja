@@ -21,18 +21,15 @@ function App(props) {
 
   return (
     <HashRouter>
-      <div className="d-flex" id="app-wrapper">
+      <div className="" id="app-wrapper">
+        <Navbar noButtons={!loggedIn} />
+
         {loggedIn ? (
           <div id="playlists-view-wrapper">
-            <Navbar />
             <Container>
               <Row>
-                <Profile />
-              </Row>
-
-              <Row>
-                <h2> Logged in</h2>
-                <SpotifyLogoutButton />
+                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/playlist-builder" component={null} />
               </Row>
             </Container>
           </div>

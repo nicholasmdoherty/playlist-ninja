@@ -9,6 +9,8 @@
 .playlist-card-image {
   width: 75%;
   height: auto;
+  border: 2px black solid;
+  padding: 4px;
 }
 
 .playlist-card {

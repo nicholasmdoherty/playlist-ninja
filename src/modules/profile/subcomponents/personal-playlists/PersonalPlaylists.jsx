@@ -22,7 +22,7 @@ class PersonalPlaylists extends Component {
     let { api, userId } = this.props;
 
     if (userId) {
-      api.spotifyApi.getUserPlaylists(userId, { limit: 24 }).then(
+      api.getUserPlaylists(userId, { limit: 24 }).then(
         data => {
           this.setState({ playlists: data.body });
         },
@@ -48,7 +48,7 @@ class PersonalPlaylists extends Component {
 
           <Row>
             {items.map(playlist => {
-              return <PlaylistCard playlist={playlist} />;
+              return <PlaylistCard playlist={playlist} api={this.props.api} />;
             })}
           </Row>
         </div>
@@ -61,7 +61,7 @@ class PersonalPlaylists extends Component {
 
 export const mapStateToProps = state => {
   return {
-    api: state.api
+    api: state.api.spotifyApi
   };
 };
 

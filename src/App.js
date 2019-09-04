@@ -8,6 +8,7 @@ import Navbar from "./common/components/Navbar";
 import { connect } from "react-redux";
 import { setSpotifyApiAction } from "./redux/actions/apiActions";
 import Profile from "./modules/profile/Profile";
+import PlaylistBuilder from "./modules/playlist-builder/PlaylistBuilder";
 import { Container, Row } from "react-bootstrap";
 
 function App(props) {
@@ -28,8 +29,12 @@ function App(props) {
           <div id="playlists-view-wrapper">
             <Container>
               <Row>
-                <Route exact path="/profile" component={Profile} />
-                <Route exact path="/playlist-builder" component={null} />
+                <Route exact path="(|/profile)" component={Profile} />
+                <Route
+                  exact
+                  path="/playlist-builder"
+                  component={PlaylistBuilder}
+                />
               </Row>
             </Container>
           </div>

@@ -1,21 +1,28 @@
 .playlist-card-button-wrapper {
-  justify-content: space-between;
+  width: fit-content;
+}
+
+.playlist-card-col {
+  margin-bottom: 0.25rem !important;
+  margin: 0.3rem;
 }
 
 .playlist-card-content {
-  max-height: 50%;
+  height: 100%;
+  max-width: 50%;
+  align-items: center;
 }
 
 .playlist-card-image {
-  width: 75%;
-  height: auto;
-  border: 2px black solid;
-  padding: 4px;
+  width: auto;
+  height: 100%;
 }
 
 .playlist-card {
-  height: 420px;
+  width: 100%;
+  height: 5rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }

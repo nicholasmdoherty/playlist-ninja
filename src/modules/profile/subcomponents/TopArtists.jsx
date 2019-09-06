@@ -39,7 +39,7 @@ class TopArtists extends Component {
           this.state.topArtists.items.map(topArtist => {
             return (
               <Col xs={6} sm={4} lg={2} className="text-center">
-                <div className="p-2">
+                <div className="p-2 word-wrap">
                   <Image
                     src={topArtist.images[0].url}
                     roundedCircle

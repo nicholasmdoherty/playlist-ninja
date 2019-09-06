@@ -5,8 +5,32 @@ export const setSelectedPlaylist = (
   let playlistResponse = null;
 
   await spotifyApi.getPlaylist(playlistId).then(
-    data => {
+    async data => {
       playlistResponse = data.body;
+
+      let notAllTracks = playlistResponse.tracks.next;
+
+      playlistResponse.tracks = playlistResponse.tracks.items;
+
+      if (notAllTracks) {
+        let offset = 100;
+
+        while (notAllTracks) {
+          await spotifyApi
+            .getPlaylistTracks(playlistId, { offset })
+            .then(data => {
+              if (!data.body.next) {
+                notAllTracks = false;
+              }
+
+              offset += 100;
+
+              playlistResponse.tracks = playlistResponse.tracks.concat(
+                data.body.items
+              );
+            });
+        }
+      }
     },
     error => {
       playlistResponse = error;

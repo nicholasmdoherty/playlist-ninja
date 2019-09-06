@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import PlaylistCard from "./PlaylistCard";
 import Spacer from "../../../../common/components/Spacer";
+import { loadUsersEditablePlaylists } from "../../../../redux/actions/playlistActions";
 
 class PersonalPlaylists extends Component {
   constructor(props) {
@@ -19,27 +20,18 @@ class PersonalPlaylists extends Component {
   }
 
   getPersonalPlaylistData() {
-    let { api, userId } = this.props;
+    let { userId, api } = this.props;
 
     if (userId) {
-      api.getUserPlaylists(userId, { limit: 24 }).then(
-        data => {
-          this.setState({ playlists: data.body });
-        },
-        error => {
-          this.setState({ error: error });
-        }
-      );
+      this.props.loadEditablePlaylists(userId, api);
     } else {
       this.setState({ error: "No user ID found, please reload" });
     }
   }
 
   render() {
-    if (this.state.playlists) {
-      let {
-        playlists: { items }
-      } = this.state;
+    if (this.props.playlists) {
+      let { playlists } = this.props;
 
       return (
         <div className="text-center">
@@ -47,7 +39,7 @@ class PersonalPlaylists extends Component {
           <Spacer percentage={3} />
 
           <Row>
-            {items.map(playlist => {
+            {playlists.map(playlist => {
               return <PlaylistCard playlist={playlist} api={this.props.api} />;
             })}
           </Row>
@@ -61,8 +53,19 @@ class PersonalPlaylists extends Component {
 
 export const mapStateToProps = state => {
   return {
-    api: state.api.spotifyApi
+    api: state.api.spotifyApi,
+    playlists: state.playlist.editablePlaylists
   };
 };
 
-export default connect(mapStateToProps)(PersonalPlaylists);
+export const mapDispatchToProps = dispatch => {
+  return {
+    loadEditablePlaylists: (userId, spotifyApi) =>
+      dispatch(loadUsersEditablePlaylists(userId, spotifyApi))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PersonalPlaylists);

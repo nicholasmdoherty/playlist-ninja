@@ -42,3 +42,53 @@ export const setSelectedPlaylist = (
     payload: playlistResponse
   });
 };
+
+export const loadUsersEditablePlaylists = (
+  userId,
+  spotifyApi
+) => async dispatch => {
+  let playlistsResponse = null;
+
+  await spotifyApi.getUserPlaylists(userId, { limit: 50 }).then(
+    async response => {
+      playlistsResponse = response.body.items;
+      let notAllPlaylists = response.body.next;
+
+      if (notAllPlaylists) {
+        let offset = 50;
+
+        while (notAllPlaylists) {
+          await spotifyApi
+            .getUserPlaylists(userId, { limit: 50, offset })
+            .then(morePlaylistsResponse => {
+              if (!morePlaylistsResponse.body.next) {
+                notAllPlaylists = false;
+              }
+
+              offset += 50;
+
+              playlistsResponse = playlistsResponse.concat(
+                morePlaylistsResponse.body.items
+              );
+            });
+        }
+      }
+
+      debugger;
+
+      playlistsResponse = playlistsResponse.filter(playlist => {
+        return playlist.owner.id == userId || playlist.collaborative;
+      });
+    },
+    error => {
+      playlistsResponse = error;
+    }
+  );
+
+  debugger;
+
+  dispatch({
+    type: "LOAD_EDITABLE_PLAYLISTS",
+    payload: playlistsResponse
+  });
+};

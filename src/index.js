@@ -7,7 +7,9 @@ import { Provider } from "react-redux";
 import configureStore from "./store";
 
 ReactDOM.render(
-  <Provider store={configureStore({ api: null, selectedPlaylist: null })}>
+  <Provider
+    store={configureStore({ api: null, playlist: { editablePlaylists: [] } })}
+  >
     <App />
   </Provider>,
   document.getElementById("root")

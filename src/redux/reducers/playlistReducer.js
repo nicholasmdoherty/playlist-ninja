@@ -5,6 +5,11 @@ export default (state = {}, action) => {
         ...state,
         selectedPlaylist: action.payload
       };
+    case "LOAD_EDITABLE_PLAYLISTS":
+      return {
+        ...state,
+        editablePlaylists: action.payload
+      };
     default:
       return state;
   }

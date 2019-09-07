@@ -8,3 +8,8 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.profile-image {
+  max-width: 85%;
+  height: auto;
+}

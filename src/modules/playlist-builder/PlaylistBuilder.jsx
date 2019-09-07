@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import Spacer from "../../common/components/Spacer";
+import PlaylistInfo from "./subcomponents/PlaylistInfo";
 import "./playlist-builder.css";
 
 class PlaylistBuilder extends Component {
@@ -31,7 +32,7 @@ class PlaylistBuilder extends Component {
 
     return (
       <div id="playlist-builder-wrapper">
-        <h1>Selected playlist: {selectedPlaylist.name} </h1>
+        <PlaylistInfo playlist={selectedPlaylist} />
       </div>
     );
   }

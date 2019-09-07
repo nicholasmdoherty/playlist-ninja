@@ -74,8 +74,6 @@ export const loadUsersEditablePlaylists = (
         }
       }
 
-      debugger;
-
       playlistsResponse = playlistsResponse.filter(playlist => {
         return playlist.owner.id == userId || playlist.collaborative;
       });
@@ -84,8 +82,6 @@ export const loadUsersEditablePlaylists = (
       playlistsResponse = error;
     }
   );
-
-  debugger;
 
   dispatch({
     type: "LOAD_EDITABLE_PLAYLISTS",

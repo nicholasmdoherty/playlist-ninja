@@ -10,40 +10,69 @@ import { setSpotifyApiAction } from "./redux/actions/apiActions";
 import Profile from "./modules/profile/Profile";
 import PlaylistBuilder from "./modules/playlist-builder/PlaylistBuilder";
 import { Container, Row } from "react-bootstrap";
+import autoBind from "react-autobind";
 
-function App(props) {
-  let loggedIn = false;
-  let token = getCookie("spotifyAccessToken");
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-  if (token !== "") {
-    loggedIn = true;
-    props.setSpotifyApi(token);
+    this.state = {
+      loggedIn: false,
+      token: ""
+    };
+
+    autoBind(this);
   }
 
-  return (
-    <HashRouter>
-      <div className="" id="app-wrapper">
-        <Navbar noButtons={!loggedIn} />
+  componentDidMount() {
+    // Add an event listener to update the App component
+    // when the hash link changes. This is to check if the cookie is expired or not.
+    window.addEventListener("hashchange", () => {
+      this.checkForLogin();
+    });
 
-        {loggedIn ? (
-          <div id="playlists-view-wrapper">
-            <Container>
-              <Row>
-                <Route exact path="(|/profile)" component={Profile} />
-                <Route
-                  exact
-                  path="/playlist-builder"
-                  component={PlaylistBuilder}
-                />
-              </Row>
-            </Container>
-          </div>
-        ) : (
-          <LoginPage />
-        )}
-      </div>
-    </HashRouter>
-  );
+    this.checkForLogin();
+  }
+
+  checkForLogin() {
+    let token = getCookie("spotifyAccessToken");
+
+    if (token !== "" && token != this.state.token) {
+      this.setState({ loggedIn: true, token: token });
+      this.props.setSpotifyApi(token);
+    } else if (token === "") {
+      this.setState({ loggedIn: false, token: "" });
+    }
+  }
+
+  render() {
+    let { loggedIn } = this.state;
+
+    return (
+      <HashRouter>
+        <div className="" id="app-wrapper">
+          <Navbar noButtons={!loggedIn} />
+
+          {loggedIn ? (
+            <div id="playlists-view-wrapper">
+              <Container>
+                <Row>
+                  <Route exact path="(|/profile)" component={Profile} />
+                  <Route
+                    exact
+                    path="/playlist-builder"
+                    component={PlaylistBuilder}
+                  />
+                </Row>
+              </Container>
+            </div>
+          ) : (
+            <LoginPage />
+          )}
+        </div>
+      </HashRouter>
+    );
+  }
 }
 
 const mapStateToProps = state => {};

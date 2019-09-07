@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import "../playlist-builder.css";
 import { Image, Col, Row } from "react-bootstrap";
+import { isBelowSmallBreakpoint } from "../../../common/constants";
 
 export default class PlaylistInfo extends Component {
+  componentDidMount() {
+    window.addEventListener("resize", () => {
+      this.forceUpdate();
+    });
+  }
+
   render() {
     let { playlist } = this.props;
 
@@ -16,11 +23,13 @@ export default class PlaylistInfo extends Component {
             />
           </Col>
           <Col
-            className="playlist-title-desc-wrapper text-right word-wrap"
+            className="playlist-title-desc-wrapper text-right word-wrap p-3"
             xs={12}
             sm={6}
           >
-            <h1 className="display-3">{playlist.name}</h1>
+            <h2 className={!isBelowSmallBreakpoint() ? "display-4" : ""}>
+              {playlist.name}
+            </h2>
             <p>{playlist.description || "No description provided."}</p>
             <p>
               {playlist.followers.total}{" "}

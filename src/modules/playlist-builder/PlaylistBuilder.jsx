@@ -11,7 +11,7 @@ class PlaylistBuilder extends Component {
 
     if (!selectedPlaylist) {
       return (
-        <div id="playlist-builder-wrapper">
+        <div id="playlist-builder-wrapper" className="p-4">
           <Col xs={12}>
             <Spacer percentage={3} />
             <div className="w-100 h-100 no-selected-playlist">
@@ -31,7 +31,7 @@ class PlaylistBuilder extends Component {
     }
 
     return (
-      <div id="playlist-builder-wrapper">
+      <div id="playlist-builder-wrapper" className="p-4">
         <PlaylistInfo playlist={selectedPlaylist} />
       </div>
     );

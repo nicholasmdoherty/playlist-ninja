@@ -41,3 +41,7 @@ code {
 .word-wrap {
   word-wrap: break-word;
 }
+
+.space-between {
+  justify-content: space-between;
+}

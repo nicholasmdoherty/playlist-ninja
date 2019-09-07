@@ -1,30 +1,27 @@
-.playlist-card-button-wrapper {
-  width: fit-content;
-}
-
 .playlist-card-col {
-  margin-bottom: 0.25rem !important;
-  margin: 0.3rem;
+  margin-bottom: 0.75rem !important;
 }
 
 .playlist-card-content {
+  padding: 0.5rem;
   height: 100%;
-  max-width: 50%;
   align-items: center;
 }
 
-.playlist-card-image {
+.mobile-playlist-card-image {
+  width: 50%;
+  height: auto;
+  border: 2px solid black;
+  padding: 4px;
+}
+
+.desktop-playlist-card-image {
   width: auto;
   height: 100%;
 }
 
 .playlist-card {
   background: #eee;
-  width: 100%;
-  height: 5rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -40,4 +37,23 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.mobile-playlist-card-button-wrapper {
+  padding: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.desktop-playlist-card-button-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.playlist-row-height {
+  height: 5rem;
 }

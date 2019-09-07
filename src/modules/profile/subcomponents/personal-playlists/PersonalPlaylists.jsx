@@ -34,16 +34,16 @@ class PersonalPlaylists extends Component {
       let { playlists } = this.props;
 
       return (
-        <div className="text-center pb-5">
-          <h3 className="display-5"> My Playlists </h3>
-          <Spacer percentage={3} />
+        <Row className="text-center m-3 pb-2">
+          <Col xs={12}>
+            <h3 className="display-5"> My Playlists </h3>
+            <Spacer percentage={3} />
+          </Col>
 
-          <Row>
-            {playlists.map(playlist => {
-              return <PlaylistCard playlist={playlist} api={this.props.api} />;
-            })}
-          </Row>
-        </div>
+          {playlists.map(playlist => {
+            return <PlaylistCard playlist={playlist} api={this.props.api} />;
+          })}
+        </Row>
       );
     } else {
       return null;

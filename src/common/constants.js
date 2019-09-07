@@ -59,3 +59,7 @@ export function isBelowMediumBreakpoint() {
 export function isBelowSmallBreakpoint() {
   return window.innerWidth < 768;
 }
+
+export function isBelowExtraSmallBreakpoint() {
+  return window.innerWidth < 576;
+}

@@ -1,10 +1,5 @@
 import React, { Component } from "react";
 import { Image, Col, Row } from "react-bootstrap";
-import {
-  deepCamelCaseKeys,
-  isBelowMediumBreakpoint,
-  isBelowSmallBreakpoint
-} from "../../../common/constants";
 import Spacer from "../../../common/components/Spacer";
 import SpotifyLogoutButton from "../../spotify-sign-in/SpotifyLogoutButton";
 

@@ -34,7 +34,7 @@ class PersonalPlaylists extends Component {
       let { playlists } = this.props;
 
       return (
-        <div className="text-center">
+        <div className="text-center pb-5">
           <h3 className="display-5"> My Playlists </h3>
           <Spacer percentage={3} />
 

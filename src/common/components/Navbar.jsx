@@ -4,6 +4,12 @@ import { isBelowSmallBreakpoint } from "../constants";
 import { Link } from "react-router-dom";
 
 export default class Navbar extends Component {
+  componentDidMount() {
+    window.addEventListener("resize", () => {
+      this.forceUpdate();
+    });
+  }
+
   render() {
     return (
       <div>

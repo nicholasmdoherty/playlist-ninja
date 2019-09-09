@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import Spacer from "../../common/components/Spacer";
 import PlaylistInfo from "./subcomponents/PlaylistInfo";
 import "./playlist-builder.css";
+import PlaylistTrackStatistics from "./subcomponents/PlaylistTrackStatistics";
 
 class PlaylistBuilder extends Component {
   render() {
-    let { selectedPlaylist } = this.props;
+    let { selectedPlaylist, api } = this.props;
 
     if (!selectedPlaylist) {
       return (
@@ -33,6 +34,7 @@ class PlaylistBuilder extends Component {
     return (
       <div id="playlist-builder-wrapper" className="p-4">
         <PlaylistInfo playlist={selectedPlaylist} />
+        <PlaylistTrackStatistics tracks={selectedPlaylist.tracks} api={api} />
       </div>
     );
   }

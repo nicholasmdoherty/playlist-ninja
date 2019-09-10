@@ -63,3 +63,17 @@ export function isBelowSmallBreakpoint() {
 export function isBelowExtraSmallBreakpoint() {
   return window.innerWidth < 576;
 }
+
+export function msToHM(ms) {
+  let seconds = ms / 1000;
+
+  let hours = Math.floor(seconds / 3600);
+  seconds = seconds % 3600;
+
+  let minutes = Math.floor(seconds / 60);
+
+  return {
+    hours,
+    minutes
+  };
+}

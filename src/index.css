@@ -17,6 +17,10 @@ code {
     monospace;
 }
 
+.justify-content-center {
+  justify-content: center;
+}
+
 .main-content-card {
   background: #eee;
   box-shadow: 0px 4px 15px 2px #444;
@@ -44,4 +48,8 @@ code {
 
 .space-between {
   justify-content: space-between;
+}
+
+.mobile-small-font {
+  font-size: 0.85rem;
 }

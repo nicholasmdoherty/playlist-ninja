@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { deepCamelCaseKeys } from "../../../common/constants";
+import {
+  deepCamelCaseKeys,
+  msToHM,
+  isBelowSmallBreakpoint
+} from "../../../common/constants";
+import { Row, Col, ProgressBar } from "react-bootstrap";
 
 class PlaylistTrackStatistics extends Component {
   constructor(props) {
@@ -11,12 +16,17 @@ class PlaylistTrackStatistics extends Component {
       danceability: 0,
       valence: 0,
       energy: 0,
-      durationMs: 0
+      durationMs: 0,
+      popularity: 0
     };
   }
 
   componentDidMount() {
     this.calculateAverageStatistics();
+
+    window.addEventListener("resize", () => {
+      this.forceUpdate();
+    });
   }
 
   async calculateAverageStatistics() {
@@ -24,69 +34,150 @@ class PlaylistTrackStatistics extends Component {
 
     let statistics = {
       tempo: null,
-      loudness: null,
       danceability: null,
       valence: null,
       energy: null,
-      durationMs: null
+      durationMs: null,
+      popularity: null
     };
 
-    for (let i = 0; i < tracks.length; i++) {
-      let { track } = tracks[i];
+    let trackIds = [];
 
-      await api.getAudioFeaturesForTrack(track.id).then(data => {
-        let {
-          tempo,
-          loudness,
-          danceability,
-          valence,
-          energy,
-          durationMs
-        } = deepCamelCaseKeys(data.body);
+    tracks.forEach(playlistTrack => {
+      trackIds.push(playlistTrack.track.id);
+      statistics.popularity =
+        statistics.popularity + playlistTrack.track.popularity;
+    });
 
-        statistics.tempo = statistics.tempo + tempo;
-        statistics.loudness = statistics.loudness + loudness;
-        statistics.danceability = statistics.danceability + danceability;
-        statistics.valence = statistics.valence + valence;
-        statistics.energy = statistics.energy + energy;
-        statistics.durationMs = statistics.durationMs + durationMs;
-      });
+    let haveToLoop = trackIds.length > 100;
+
+    let trackStatistics = [];
+
+    await api.getAudioFeaturesForTracks(trackIds.splice(0, 100)).then(data => {
+      let response = deepCamelCaseKeys(data.body);
+      trackStatistics = trackStatistics.concat(response.audioFeatures);
+    });
+
+    if (haveToLoop) {
+      let numOfStatisticsReceived = 100;
+
+      while (haveToLoop) {
+        await api
+          .getAudioFeaturesForTracks(trackIds.splice(0, 100))
+          .then(data => {
+            let response = deepCamelCaseKeys(data.body);
+            trackStatistics = trackStatistics.concat(response.audioFeatures);
+            numOfStatisticsReceived += response.audioFeatures.length;
+          });
+
+        if (numOfStatisticsReceived === tracks.length) {
+          haveToLoop = false;
+        }
+      }
     }
+
+    trackStatistics.forEach(trackStatistic => {
+      statistics.tempo = statistics.tempo + trackStatistic.tempo;
+      statistics.danceability =
+        statistics.danceability + trackStatistic.danceability;
+      statistics.valence = statistics.valence + trackStatistic.valence;
+      statistics.energy = statistics.energy + trackStatistic.energy;
+      statistics.durationMs = statistics.durationMs + trackStatistic.durationMs;
+    });
 
     this.setState({
       tempo: statistics.tempo / tracks.length,
-      loudness: statistics.loudness / tracks.length,
       danceability: statistics.danceability / tracks.length,
       valence: statistics.valence / tracks.length,
       energy: statistics.energy / tracks.length,
-      durationMs: statistics.durationMs
+      durationMs: statistics.durationMs,
+      popularity: statistics.popularity / tracks.length
     });
   }
 
   render() {
     let {
       tempo,
-      loudness,
       danceability,
       valence,
       energy,
-      durationMs
+      durationMs,
+      popularity
     } = this.state;
 
-    if (
-      !(tempo && loudness && danceability && valence && energy && durationMs)
-    ) {
+    if (!(tempo && danceability && valence && energy && durationMs)) {
       return null;
     }
 
+    let duration = msToHM(Math.round(durationMs));
+
     return (
-      <div>
-        <h2>{tempo} BPM</h2>
-        <h2>{loudness} DB</h2>
-        <h2>{danceability} danceability</h2>
-        <h2>{valence} valence</h2>
-        <h2>{energy} energy</h2>
-        <h2>{durationMs} ms</h2>
+      <div className="m-1 mt-3">
+        <Row className="p-2 justify-content-center">
+          <Col xs={4} sm={4} className="p-2 mb-2 text-center">
+            <p
+              className={`mb-1 ${
+                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
+              }`}
+            >
+              Energy:
+            </p>
+            <ProgressBar animated striped now={energy * 100} />
+          </Col>
+          <Col xs={4} sm={4} className="p-2 mb-2 text-center">
+            <p
+              className={`mb-1 ${
+                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
+              }`}
+            >
+              Danceability:
+            </p>
+            <ProgressBar animated striped now={danceability * 100} />
+          </Col>
+          <Col xs={4} sm={4} className="p-2 mb-2 text-center">
+            <p
+              className={`mb-1 ${
+                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
+              }`}
+            >
+              Valence:
+            </p>
+            <ProgressBar animated striped now={valence * 100} />
+          </Col>
+        </Row>
+        <Row className="p-2 justify-content-center">
+          <Col xs={4} sm={4} className="p-2 mb-2 text-center">
+            <p
+              className={`mb-1 ${
+                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
+              }`}
+            >
+              Tempo: <br />
+              {Math.round(tempo)}BPM
+            </p>
+          </Col>
+          <Col xs={4} sm={4} className="p-2 mb-2 text-center">
+            <p
+              className={`mb-1 ${
+                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
+              }`}
+            >
+              Duration: <br />
+              {duration.hours > 0 ? duration.hours + "hrs" : ""}{" "}
+              {duration.minutes > 0 ? duration.minutes + "mins" : ""}
+            </p>
+          </Col>
+          <Col xs={4} sm={4} className="p-2 mb-2 text-center">
+            <p
+              className={`mb-1 ${
+                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
+              }`}
+            >
+              Popularity: <br />
+              {Math.round(popularity)}
+            </p>
+          </Col>
+        </Row>
       </div>
     );
   }

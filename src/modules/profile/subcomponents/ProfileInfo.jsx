@@ -19,7 +19,10 @@ class ProfileInfo extends Component {
       return (
         <Row>
           <Col xs={12} className="text-center word-wrap">
-            <Image src={images[0].url} className="drop-shadow profile-image" />
+            <Image
+              src={images[0] ? images[0].url : ""}
+              className="drop-shadow profile-image"
+            />
             <Spacer percentage={5} />
             <h1 className="display-4">{displayName}</h1>
             <h5 className="lead">{email}</h5>

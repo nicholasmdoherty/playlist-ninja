@@ -20,8 +20,6 @@ class PlaylistCard extends Component {
     this.props.dispatch(
       setSelectedPlaylist(this.props.playlist.id, this.props.api)
     );
-
-    window.location.hash = "#/playlist-builder";
   }
 
   componentDidMount() {

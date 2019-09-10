@@ -4,45 +4,49 @@ export const setSelectedPlaylist = (
 ) => async dispatch => {
   let playlistResponse = null;
 
-  await spotifyApi.getPlaylist(playlistId).then(
-    async data => {
-      playlistResponse = data.body;
+  await spotifyApi
+    .getPlaylist(playlistId)
+    .then(
+      async data => {
+        playlistResponse = data.body;
 
-      let notAllTracks = playlistResponse.tracks.next;
+        let notAllTracks = playlistResponse.tracks.next;
 
-      playlistResponse.tracks = playlistResponse.tracks.items;
+        playlistResponse.tracks = playlistResponse.tracks.items;
 
-      if (notAllTracks) {
-        let offset = 100;
+        if (notAllTracks) {
+          let offset = 100;
 
-        while (notAllTracks) {
-          await spotifyApi
-            .getPlaylistTracks(playlistId, { offset })
-            .then(data => {
-              if (!data.body.next) {
-                notAllTracks = false;
-              }
+          while (notAllTracks) {
+            await spotifyApi
+              .getPlaylistTracks(playlistId, { offset })
+              .then(data => {
+                if (!data.body.next) {
+                  notAllTracks = false;
+                }
 
-              offset += 100;
+                offset += 100;
 
-              playlistResponse.tracks = playlistResponse.tracks.concat(
-                data.body.items
-              );
-            });
+                playlistResponse.tracks = playlistResponse.tracks.concat(
+                  data.body.items
+                );
+              });
+          }
         }
+      },
+      error => {
+        playlistResponse = error;
       }
-    },
-    error => {
-      playlistResponse = error;
-    }
-  );
+    )
+    .then(() => {
+      window.location.hash = "#/playlist-builder";
+    });
 
   dispatch({
     type: "SET_SELECTED_PLAYLIST",
     payload: playlistResponse
   });
 };
-
 export const loadUsersEditablePlaylists = (
   userId,
   spotifyApi

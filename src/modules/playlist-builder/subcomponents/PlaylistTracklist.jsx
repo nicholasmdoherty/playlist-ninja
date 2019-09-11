@@ -48,6 +48,9 @@ class PlaylistTracklist extends Component {
 
     return (
       <div>
+        <div className="text-center">
+          <h5 className="lead">Track list:</h5>
+        </div>
         <TrackTable
           tracks={trackPages[currentPage] || []}
           tracksInPlaylist={true}

@@ -37,6 +37,7 @@ class PlaylistBuilder extends Component {
       <div id="playlist-builder-wrapper" className="p-4">
         <PlaylistInfo playlist={selectedPlaylist} />
         <PlaylistTrackStatistics tracks={selectedPlaylist.tracks} api={api} />
+        <br />
         <PlaylistTracklist tracks={selectedPlaylist.tracks} />
       </div>
     );

@@ -24,13 +24,17 @@ class PlaylistTracklist extends Component {
     let pageIndex = 0;
 
     while (notAllTracksLoaded) {
-      let page = tracksCopy.splice(0, 8);
+      let playlistTrackObjectpage = tracksCopy.splice(0, 8);
 
-      if (page.length === 0) {
+      let trackObjectPage = playlistTrackObjectpage.map(playlistTrack => {
+        return playlistTrack.track;
+      });
+
+      if (trackObjectPage.length === 0) {
         notAllTracksLoaded = false;
       } else {
         await this.setState({
-          trackPages: { ...this.state.trackPages, [pageIndex]: page }
+          trackPages: { ...this.state.trackPages, [pageIndex]: trackObjectPage }
         });
         pageIndex += 1;
       }
@@ -49,7 +53,8 @@ class PlaylistTracklist extends Component {
     return (
       <div>
         <div className="text-center">
-          <h5 className="lead">Track list:</h5>
+          <h4> Track List </h4>
+          <br />
         </div>
         <TrackTable
           tracks={trackPages[currentPage] || []}

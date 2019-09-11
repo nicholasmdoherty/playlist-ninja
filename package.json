@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "camelcase-keys": "^6.0.1",
+    "rc-slider": "^8.7.1",
     "react": "^16.9.0",
     "react-autobind": "^1.0.6",
     "react-bootstrap": "^1.0.0-beta.12",

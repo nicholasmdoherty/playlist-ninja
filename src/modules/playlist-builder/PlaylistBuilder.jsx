@@ -7,6 +7,7 @@ import "./playlist-builder.css";
 import PlaylistTrackStatistics from "./subcomponents/PlaylistTrackStatistics";
 import TrackTable from "./subcomponents/TrackTable";
 import PlaylistTracklist from "./subcomponents/PlaylistTracklist";
+import Recommendations from "./subcomponents/Recommendations";
 
 class PlaylistBuilder extends Component {
   render() {
@@ -39,6 +40,10 @@ class PlaylistBuilder extends Component {
         <PlaylistTrackStatistics tracks={selectedPlaylist.tracks} api={api} />
         <br />
         <PlaylistTracklist tracks={selectedPlaylist.tracks} />
+        <br />
+        <hr />
+        <br />
+        <Recommendations playlistTracks={selectedPlaylist.tracks} />
       </div>
     );
   }

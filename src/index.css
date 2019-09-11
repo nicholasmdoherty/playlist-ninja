@@ -53,3 +53,11 @@ code {
 .mobile-small-font {
   font-size: 0.85rem;
 }
+
+.w-33 {
+  width: 33.3%;
+}
+
+.align-center {
+  align-items: center;
+}

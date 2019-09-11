@@ -4,19 +4,17 @@ import { Table, Button } from "react-bootstrap";
 class TrackTable extends Component {
   render() {
     return (
-      <Table responsive striped hover size="sm">
+      <Table responsive striped hover bordered size="sm" className="text-left">
         <thead></thead>
         <tbody>
-          {this.props.tracks.map(playlistTrack => {
+          {this.props.tracks.map(track => {
             return (
               <tr>
                 <td className="word-wrap">
-                  <p className="track-table-title">
-                    {playlistTrack.track.name}
-                  </p>
+                  <p className="track-table-title">{track.name}</p>
                   <p className="track-table-font ">
-                    {playlistTrack.track.artists.map((artist, index) => {
-                      return index === playlistTrack.track.artists.length - 1
+                    {track.artists.map((artist, index) => {
+                      return index === track.artists.length - 1
                         ? artist.name
                         : artist.name + ", ";
                     })}
@@ -24,9 +22,7 @@ class TrackTable extends Component {
                 </td>
                 <td className="text-right word-wrap">
                   {this.props.tracksInPlaylist ? (
-                    <Button variant="danger" size="sm">
-                      -
-                    </Button>
+                    <Button variant="danger">-</Button>
                   ) : (
                     <Button>+</Button>
                   )}

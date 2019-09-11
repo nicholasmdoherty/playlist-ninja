@@ -4,7 +4,7 @@ import { Table, Button } from "react-bootstrap";
 class TrackTable extends Component {
   render() {
     return (
-      <Table responsive striped hover>
+      <Table responsive striped hover size="sm">
         <thead></thead>
         <tbody>
           {this.props.tracks.map(playlistTrack => {

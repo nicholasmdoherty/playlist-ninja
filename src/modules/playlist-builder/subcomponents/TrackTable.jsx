@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import autoBind from "react-autobind";
 import { setSelectedPlaylist } from "../../../redux/actions/playlistActions";
+import "../playlist-builder.css";
 
 class TrackTable extends Component {
   constructor(props) {
@@ -100,17 +101,27 @@ class TrackTable extends Component {
           {this.props.tracks.map(track => {
             return (
               <tr>
-                <td className="word-wrap">
-                  <p className="track-table-title">{track.name}</p>
-                  <p className="track-table-font ">
-                    {track.artists.map((artist, index) => {
-                      return index === track.artists.length - 1
-                        ? artist.name
-                        : artist.name + ", ";
-                    })}
-                  </p>
+                <td className="maxw-50-view">
+                  <div className="d-flex align-center">
+                    {track.album.images[0] && (
+                      <Image
+                        src={track.album.images[0].url}
+                        className="track-table-image m-1"
+                      />
+                    )}
+                    <div className="break-long-words">
+                      <p className="track-table-title">{track.name}</p>
+                      <p className="track-table-font ">
+                        {track.artists.map((artist, index) => {
+                          return index === track.artists.length - 1
+                            ? artist.name
+                            : artist.name + ", ";
+                        })}
+                      </p>
+                    </div>
+                  </div>
                 </td>
-                <td className="text-right h-100 word-wrap d-flex justify-end p-1">
+                <td className="text-right h-100 break-long-words d-flex justify-end p-1">
                   {this.props.tracksInPlaylist ? (
                     <Button
                       onClick={this.handleRemoveTrackFromPlaylist(track.id)}

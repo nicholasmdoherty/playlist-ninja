@@ -39,7 +39,7 @@ class TopTracks extends Component {
           this.state.topTracks.items.map(topTrack => {
             return (
               <Col xs={6} sm={4} lg={2} className="text-center">
-                <div className="p-2 word-wrap">
+                <div className="p-2 break-long-words">
                   <Image
                     src={topTrack.album.images[0].url}
                     fluid

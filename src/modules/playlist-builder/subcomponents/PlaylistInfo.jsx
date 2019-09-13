@@ -25,7 +25,7 @@ export default class PlaylistInfo extends Component {
             ) : null}
           </Col>
           <Col
-            className="playlist-title-desc-wrapper text-right word-wrap p-3"
+            className="playlist-title-desc-wrapper text-right break-long-words p-3"
             xs={12}
             sm={6}
           >

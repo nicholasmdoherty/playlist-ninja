@@ -61,3 +61,7 @@ code {
 .align-center {
   align-items: center;
 }
+
+.justify-end {
+  justify-content: flex-end;
+}

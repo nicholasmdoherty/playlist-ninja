@@ -39,11 +39,17 @@ class PlaylistBuilder extends Component {
         <PlaylistInfo playlist={selectedPlaylist} />
         <PlaylistTrackStatistics tracks={selectedPlaylist.tracks} api={api} />
         <br />
-        <PlaylistTracklist tracks={selectedPlaylist.tracks} />
+        <PlaylistTracklist
+          tracks={selectedPlaylist.tracks}
+          playlistId={selectedPlaylist.id}
+        />
         <br />
         <hr />
         <br />
-        <Recommendations playlistTracks={selectedPlaylist.tracks} />
+        <Recommendations
+          playlistTracks={selectedPlaylist.tracks}
+          playlistId={selectedPlaylist.id}
+        />
       </div>
     );
   }

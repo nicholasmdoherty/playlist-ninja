@@ -16,7 +16,18 @@ class PlaylistTracklist extends Component {
     autoBind(this);
   }
 
-  async componentDidMount() {
+  /**
+   * Loads the tracks into state on mount.
+   */
+  componentDidMount() {
+    this.loadTracks();
+  }
+
+  /**
+   * Loads the tracks in this playlist into trackPages in the state, where
+   * the pages are indexed with a maximum of 8 songs per page.
+   */
+  async loadTracks() {
     let { tracks } = this.props;
 
     let tracksCopy = tracks.concat([]);
@@ -41,10 +52,27 @@ class PlaylistTracklist extends Component {
     }
   }
 
+  /**
+   * Returns an event handler that changes the current page to the
+   * page with the given index.
+   * @param {number} newPageIndex The index of the page to change to.
+   */
   changeCurrentPageHandler(newPageIndex) {
     return () => {
       this.setState({ currentPage: newPageIndex });
     };
+  }
+
+  /**
+   * Method to refresh the tracklist.
+   *
+   * Since we load the tracks into the state from props, we have to
+   * reload the tracks into state.
+   *
+   * TODO: Use redux to load playlists instead.
+   */
+  refreshTracklist() {
+    this.loadTracks();
   }
 
   render() {
@@ -59,6 +87,8 @@ class PlaylistTracklist extends Component {
         <TrackTable
           tracks={trackPages[currentPage] || []}
           tracksInPlaylist={true}
+          playlistId={this.props.playlistId}
+          refreshTracks={this.refreshTracklist}
         />
         <div className="d-flex justify-content-center">
           <Pagination>

@@ -112,7 +112,7 @@ class Recommendations extends Component {
     });
 
     let query = {
-      limit: 10,
+      limit: 35,
       target_bpm: targetBPM,
       target_valence: targetValence,
       target_energy: targetEnergy,
@@ -133,7 +133,7 @@ class Recommendations extends Component {
   }
 
   /**
-   * Function to see if all the seeds for recommendations are filled since
+   * Method to see if all the seeds for recommendations are filled since
    * Spotify only allows 5 seeds of any type.
    *
    * @returns a boolean representing whether or not we have the max amounts of seeds.
@@ -157,6 +157,12 @@ class Recommendations extends Component {
     return artistSeeds.length + trackSeeds.length >= 5;
   }
 
+  /**
+   * Returns an event handler that sets the seed track with the given
+   * index to the value of the event's target.
+   *
+   * @param {number} index The index of the seed artist to change.
+   */
   handleAddSeedArtist(index) {
     return event => {
       this.setState({
@@ -168,6 +174,11 @@ class Recommendations extends Component {
     };
   }
 
+  /**
+   * Renders the dropdown menus for selecting seed artists.
+   *
+   * @returns JSX.Element
+   */
   renderSeedArtistsDropdown() {
     let { playlistTracks } = this.props;
 
@@ -185,7 +196,7 @@ class Recommendations extends Component {
       <Form.Group controlId="seedArtists">
         <Row className="w-100 m-0">
           <Col xs={12} className="text-left">
-            <h5 className="lead">Seed Artists</h5>
+            <h5 className="lead">Similar Artists</h5>
           </Col>
 
           {[1, 2, 3].map(seedNumber => {
@@ -217,6 +228,12 @@ class Recommendations extends Component {
     );
   }
 
+  /**
+   * Returns an event handler that sets the seed track with the given
+   * index to the value of the event's target.
+   *
+   * @param {number} index The index of the seed track to change.
+   */
   handleAddSeedTrack(index) {
     return event => {
       this.setState({
@@ -228,6 +245,11 @@ class Recommendations extends Component {
     };
   }
 
+  /**
+   * Renders the dropdown menus for selecting seed tracks.
+   *
+   * @returns JSX.Element
+   */
   renderSeedTracksDropdown() {
     let { playlistTracks } = this.props;
 
@@ -245,7 +267,7 @@ class Recommendations extends Component {
       <Form.Group controlId="seedTracks">
         <Row className="w-100 m-0">
           <Col xs={12} className="text-left">
-            <h5 className="lead">Seed Tracks</h5>
+            <h5 className="lead">Similar Tracks</h5>
           </Col>
 
           {[1, 2, 3].map(seedNumber => {
@@ -275,6 +297,12 @@ class Recommendations extends Component {
     );
   }
 
+  /**
+   * Renders the sliders for selecting target audio features for the
+   * recommended tracks.
+   *
+   * @returns JSX.Element
+   */
   renderAudioFeatureSliders() {
     return (
       <Row className="w-100 m-0">
@@ -378,7 +406,10 @@ class Recommendations extends Component {
         )}
         {!error && (
           <div className="mt-3">
-            <TrackTable tracks={this.state.recommendedTracks} />
+            <TrackTable
+              playlistId={this.props.playlistId}
+              tracks={this.state.recommendedTracks}
+            />
           </div>
         )}
       </div>
@@ -386,7 +417,13 @@ class Recommendations extends Component {
   }
 }
 
-export const mapStateToProps = state => {
+/**
+ * Maps the spotify api to the props of the recommendations component so that
+ * we can use it to find recommendations.
+ *
+ * @param {*} state The incoming redux state
+ */
+const mapStateToProps = state => {
   return {
     api: state.api.spotifyApi
   };

@@ -53,46 +53,54 @@ class PlaylistTrackStatistics extends Component {
 
     let trackStatistics = [];
 
-    await api.getAudioFeaturesForTracks(trackIds.splice(0, 100)).then(data => {
-      let response = deepCamelCaseKeys(data.body);
-      trackStatistics = trackStatistics.concat(response.audioFeatures);
-    });
+    if (trackIds.length !== 0) {
+      await api
+        .getAudioFeaturesForTracks(trackIds.splice(0, 100))
+        .then(data => {
+          let response = deepCamelCaseKeys(data.body);
 
-    if (haveToLoop) {
-      let numOfStatisticsReceived = 100;
+          if (response.audioFeatures) {
+          }
+          trackStatistics = trackStatistics.concat(response.audioFeatures);
+        });
 
-      while (haveToLoop) {
-        await api
-          .getAudioFeaturesForTracks(trackIds.splice(0, 100))
-          .then(data => {
-            let response = deepCamelCaseKeys(data.body);
-            trackStatistics = trackStatistics.concat(response.audioFeatures);
-            numOfStatisticsReceived += response.audioFeatures.length;
-          });
+      if (haveToLoop) {
+        let numOfStatisticsReceived = 100;
 
-        if (numOfStatisticsReceived === tracks.length) {
-          haveToLoop = false;
+        while (haveToLoop) {
+          await api
+            .getAudioFeaturesForTracks(trackIds.splice(0, 100))
+            .then(data => {
+              let response = deepCamelCaseKeys(data.body);
+              trackStatistics = trackStatistics.concat(response.audioFeatures);
+              numOfStatisticsReceived += response.audioFeatures.length;
+            });
+
+          if (numOfStatisticsReceived === tracks.length) {
+            haveToLoop = false;
+          }
         }
       }
+
+      trackStatistics.forEach(trackStatistic => {
+        statistics.tempo = statistics.tempo + trackStatistic.tempo;
+        statistics.danceability =
+          statistics.danceability + trackStatistic.danceability;
+        statistics.valence = statistics.valence + trackStatistic.valence;
+        statistics.energy = statistics.energy + trackStatistic.energy;
+        statistics.durationMs =
+          statistics.durationMs + trackStatistic.durationMs;
+      });
+
+      this.setState({
+        tempo: statistics.tempo / tracks.length,
+        danceability: statistics.danceability / tracks.length,
+        valence: statistics.valence / tracks.length,
+        energy: statistics.energy / tracks.length,
+        durationMs: statistics.durationMs,
+        popularity: statistics.popularity / tracks.length
+      });
     }
-
-    trackStatistics.forEach(trackStatistic => {
-      statistics.tempo = statistics.tempo + trackStatistic.tempo;
-      statistics.danceability =
-        statistics.danceability + trackStatistic.danceability;
-      statistics.valence = statistics.valence + trackStatistic.valence;
-      statistics.energy = statistics.energy + trackStatistic.energy;
-      statistics.durationMs = statistics.durationMs + trackStatistic.durationMs;
-    });
-
-    this.setState({
-      tempo: statistics.tempo / tracks.length,
-      danceability: statistics.danceability / tracks.length,
-      valence: statistics.valence / tracks.length,
-      energy: statistics.energy / tracks.length,
-      durationMs: statistics.durationMs,
-      popularity: statistics.popularity / tracks.length
-    });
   }
 
   render() {
@@ -106,7 +114,15 @@ class PlaylistTrackStatistics extends Component {
     } = this.state;
 
     if (!(tempo && danceability && valence && energy && durationMs)) {
-      return null;
+      return (
+        <div className="m-1 mt-3">
+          <Row className="p-2 justify-content-center">
+            <Col xs={12} className="p-2 mb-2 text-center">
+              No tracks in this playlist, so there are no statistics.
+            </Col>
+          </Row>
+        </div>
+      );
     }
 
     let duration = msToHM(Math.round(durationMs));

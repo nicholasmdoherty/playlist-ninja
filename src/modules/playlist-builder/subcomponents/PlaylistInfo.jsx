@@ -17,10 +17,12 @@ export default class PlaylistInfo extends Component {
       <div id="playlist-info-wrapper" className="p-2">
         <Row>
           <Col className="playlist-image-wrapper" xs={12} sm={6}>
-            <Image
-              src={playlist.images[0].url}
-              className="playlist-info-image"
-            />
+            {playlist.images[0] ? (
+              <Image
+                src={playlist.images[0].url}
+                className="playlist-info-image"
+              />
+            ) : null}
           </Col>
           <Col
             className="playlist-title-desc-wrapper text-right word-wrap p-3"

@@ -48,7 +48,7 @@ class PlaylistCard extends Component {
             }`}
           >
             <Image
-              src={playlist.images[0].url}
+              src={playlist.images[0] ? playlist.images[0].url : null}
               className={
                 isBelowSmallBreakpoint()
                   ? "mobile-playlist-card-image"

@@ -3,7 +3,7 @@ import camelCaseKeys from "camelcase-keys";
 export let spotifyScopes =
   "user-top-read user-library-read " +
   "playlist-modify-public playlist-read-private playlist-read-collaborative " +
-  "user-read-email playlist-modify-private";
+  "user-read-email playlist-modify-private streaming";
 
 export let redirectURI = "http://localhost:3000";
 export let clientID = "90a54f792a9e4fff94eec8d0c0075bd0";
@@ -31,15 +31,17 @@ export function getCookie(cname) {
 }
 
 export function deepCamelCaseKeys(variable) {
-  if (variable instanceof Object) {
-    Object.keys(variable).forEach(key => {
-      variable[key] = deepCamelCaseKeys(variable[key]);
-    });
-
-    return camelCaseKeys(variable);
+  if (variable === null) {
+    return null;
   } else if (variable instanceof Array) {
     variable.forEach((object, index) => {
       variable[index] = deepCamelCaseKeys(object);
+    });
+
+    return variable;
+  } else if (variable instanceof Object) {
+    Object.keys(variable).forEach(key => {
+      variable[key] = deepCamelCaseKeys(variable[key]);
     });
 
     return camelCaseKeys(variable);

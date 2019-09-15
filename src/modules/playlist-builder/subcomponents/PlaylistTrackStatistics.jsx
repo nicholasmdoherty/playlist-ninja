@@ -83,13 +83,15 @@ class PlaylistTrackStatistics extends Component {
       }
 
       trackStatistics.forEach(trackStatistic => {
-        statistics.tempo = statistics.tempo + trackStatistic.tempo;
-        statistics.danceability =
-          statistics.danceability + trackStatistic.danceability;
-        statistics.valence = statistics.valence + trackStatistic.valence;
-        statistics.energy = statistics.energy + trackStatistic.energy;
-        statistics.durationMs =
-          statistics.durationMs + trackStatistic.durationMs;
+        if (trackStatistic !== null) {
+          statistics.tempo = statistics.tempo + trackStatistic.tempo;
+          statistics.danceability =
+            statistics.danceability + trackStatistic.danceability;
+          statistics.valence = statistics.valence + trackStatistic.valence;
+          statistics.energy = statistics.energy + trackStatistic.energy;
+          statistics.durationMs =
+            statistics.durationMs + trackStatistic.durationMs;
+        }
       });
 
       this.setState({

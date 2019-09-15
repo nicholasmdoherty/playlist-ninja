@@ -18,17 +18,38 @@ class TrackTable extends Component {
    */
   handlePlayTrackOnSpotify(spotifyTrackId) {
     return () => {
-      let { api } = this.props;
+      let { api, playlistId, tracksInPlaylist } = this.props;
 
-      api.play({ uris: [`spotify:track:${spotifyTrackId}`] }).then(
-        response => {
-          //TODO: Handle response data and store currently playing.
-        },
-        error => {
-          //TODO: Handle error case
-          console.error(error);
-        }
-      );
+      if (tracksInPlaylist) {
+        api
+          .play({
+            context_uri: `spotify:playlist:${playlistId}`,
+            offset: { uri: `spotify:track:${spotifyTrackId}` }
+          })
+          .then(
+            response => {
+              //TODO: Handle response data and store currently playing.
+            },
+            error => {
+              //TODO: Handle error case
+              console.error(error);
+            }
+          );
+      } else {
+        api
+          .play({
+            uris: [`spotify:track:${spotifyTrackId}`]
+          })
+          .then(
+            response => {
+              //TODO: Handle response data and store currently playing.
+            },
+            error => {
+              //TODO: Handle error case
+              console.error(error);
+            }
+          );
+      }
     };
   }
 
@@ -121,7 +142,7 @@ class TrackTable extends Component {
                     </div>
                   </div>
                 </td>
-                <td className="text-right h-100 break-long-words d-flex justify-end p-1">
+                <td className="h-100 break-long-words d-flex justify-end p-1 align-center">
                   {this.props.tracksInPlaylist ? (
                     <Button
                       onClick={this.handleRemoveTrackFromPlaylist(track.id)}

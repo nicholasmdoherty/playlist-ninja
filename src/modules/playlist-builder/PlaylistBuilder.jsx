@@ -22,11 +22,9 @@ class PlaylistBuilder extends Component {
               <h1 className="display-4"> No playlist selected... </h1>
               <br />
               <p className="lead">
-                Would you like to <a href="">create a new one?</a>
-              </p>
-              <p className="lead"> or </p>
-              <p className="lead">
-                <a href="">edit an existing one?</a>
+                Please{" "}
+                <a href="#/profile">select a playlist from your profile</a> to
+                begin editing.
               </p>
             </div>
           </Col>

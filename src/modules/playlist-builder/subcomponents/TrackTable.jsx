@@ -62,9 +62,7 @@ class TrackTable extends Component {
       let { playlistId, api } = this.props;
 
       api
-        .addTracksToPlaylist(playlistId, [
-          { uri: `spotify:track:${spotifyTrackId}` }
-        ])
+        .addTracksToPlaylist(playlistId, [`spotify:track:${spotifyTrackId}`])
         .then(
           async response => {
             // refresh the selected playlist
@@ -92,9 +90,7 @@ class TrackTable extends Component {
 
       api
         .removeTracksFromPlaylist(playlistId, [
-          {
-            uri: `spotify:track:${spotifyTrackId}`
-          }
+          { uri: `spotify:track:${spotifyTrackId}` }
         ])
         .then(
           async response => {

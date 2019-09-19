@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Image, Button } from "react-bootstrap";
 import autoBind from "react-autobind";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 import "./playlists.css";
 import { setSelectedPlaylist } from "../../../../redux/actions/playlistActions";
 import {
@@ -27,12 +28,16 @@ class PlaylistCard extends Component {
    */
 
   unfollowConfirmation() {
-    return new Promise(function(resolve, reject) {
-      let confirmed = window.confirm(
-        "Are you sure you want to unfollow? It will exist on the Spotify system still, but you will not see it in your library."
-      );
-
-      return confirmed ? resolve(true) : reject(false);
+    return Swal.fire({
+      title: "Unfollow Playlist",
+      text:
+        "Are you sure you want to unfollow? It will no longer be visible in your library.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, unfollow this playlist.",
+      cancelButtonText: "Cancel",
+      allowEscapeKey: false,
+      allowOutsideClick: false
     });
   }
 
@@ -42,17 +47,21 @@ class PlaylistCard extends Component {
   unfollowPlaylist() {
     let { playlist, api, updatePlaylists } = this.props;
 
-    this.unfollowConfirmation().then(
-      () => {
-        api.unfollowPlaylist(playlist.id).then(response => {
-          alert("Success");
+    debugger;
+
+    this.unfollowConfirmation().then(result => {
+      if (result.value) {
+        api.unfollowPlaylist(playlist.id).then(() => {
+          Swal.fire({
+            type: "success",
+            text: `Unfollowed playlist: "${playlist.name}"`
+          });
           updatePlaylists();
         });
-      },
-      () => {
-        alert("Did not unfollow playlist.");
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire({ text: "Did not unfollow playlist." });
       }
-    );
+    });
   }
 
   componentDidMount() {

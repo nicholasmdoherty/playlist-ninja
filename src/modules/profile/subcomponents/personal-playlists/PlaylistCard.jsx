@@ -123,7 +123,10 @@ class PlaylistCard extends Component {
                 >
                   Edit
                 </Button>
-                <Button variant="outline-danger" className="">
+                <Button
+                  variant="outline-danger"
+                  onClick={this.unfollowPlaylist}
+                >
                   Unfollow
                 </Button>
               </div>

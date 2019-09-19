@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import TrackTable from "./TrackTable";
 import { connect } from "react-redux";
-import {
-  deepCamelCaseKeys,
-  isBelowSmallBreakpoint
-} from "../../../common/constants";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import autoBind from "react-autobind";
 import Slider from "rc-slider";
+import { setSelectedPlaylist } from "../../../redux/actions/playlistActions";
 
 class Recommendations extends Component {
   constructor(props) {
@@ -42,6 +39,14 @@ class Recommendations extends Component {
 
   componentDidMount() {
     this.handleRecommendationGeneration();
+  }
+
+  /**
+   * A method to update the selected playlist. It calls the redux action to load a selected playlist with this playlist's id.
+   */
+  updateSelectedPlaylist() {
+    let { api, playlistId, setSelectedPlaylist } = this.props;
+    setSelectedPlaylist(playlistId, api);
   }
 
   /**
@@ -409,6 +414,7 @@ class Recommendations extends Component {
             <TrackTable
               playlistId={this.props.playlistId}
               tracks={this.state.recommendedTracks}
+              updateCallback={this.updateSelectedPlaylist}
             />
           </div>
         )}
@@ -429,4 +435,14 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Recommendations);
+const mapDispatchToProps = dispatch => {
+  return {
+    setSelectedPlaylist: (playlistId, spotifyApi) =>
+      dispatch(setSelectedPlaylist(playlistId, spotifyApi))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Recommendations);

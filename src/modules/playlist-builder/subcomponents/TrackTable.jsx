@@ -68,8 +68,8 @@ class TrackTable extends Component {
             // refresh the selected playlist
             // TODO: make an action to add it instead of reloading the whole playlist.
             await setSelectedPlaylist(playlistId, api);
-            if (this.props.refreshTracks) {
-              this.props.refreshTracks();
+            if (this.props.updateCallback) {
+              this.props.updateCallback();
             }
           },
           error => {
@@ -98,8 +98,8 @@ class TrackTable extends Component {
             // TODO: make an action to add it instead of reloading the whole playlist.
             await setSelectedPlaylist(playlistId, api);
 
-            if (this.props.refreshTracks) {
-              this.props.refreshTracks();
+            if (this.props.updateCallback) {
+              this.props.updateCallback();
             }
           },
           error => {

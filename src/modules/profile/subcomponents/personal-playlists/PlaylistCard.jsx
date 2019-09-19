@@ -47,8 +47,6 @@ class PlaylistCard extends Component {
   unfollowPlaylist() {
     let { playlist, api, updatePlaylists } = this.props;
 
-    debugger;
-
     this.unfollowConfirmation().then(result => {
       if (result.value) {
         api.unfollowPlaylist(playlist.id).then(() => {
@@ -89,14 +87,19 @@ class PlaylistCard extends Component {
               isBelowExtraSmallBreakpoint() ? "space-between" : ""
             }`}
           >
-            <Image
-              src={playlist.images[0] ? playlist.images[0].url : null}
-              className={
-                isBelowSmallBreakpoint()
-                  ? "mobile-playlist-card-image"
-                  : "desktop-playlist-card-image"
-              }
-            />
+            {playlist.images[0] ? (
+              <Image
+                src={playlist.images[0].url}
+                className={
+                  isBelowSmallBreakpoint()
+                    ? "mobile-playlist-card-image"
+                    : "desktop-playlist-card-image"
+                }
+              />
+            ) : (
+              <div className="w-25" />
+            )}
+
             <div
               className={
                 isBelowExtraSmallBreakpoint() ? "text-right" : "text-left"

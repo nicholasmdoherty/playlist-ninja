@@ -97,7 +97,7 @@ class PlaylistCard extends Component {
                 }
               />
             ) : (
-              <div className="w-25" />
+              <div className={isBelowSmallBreakpoint() ? "w-25" : ""} />
             )}
 
             <div

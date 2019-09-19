@@ -9,47 +9,10 @@ class PlaylistTracklist extends Component {
     super(props);
 
     this.state = {
-      trackPages: {},
       currentPage: 0
     };
 
     autoBind(this);
-  }
-
-  /**
-   * Loads the tracks into state on mount.
-   */
-  componentDidMount() {
-    this.loadTracks();
-  }
-
-  /**
-   * Loads the tracks in this playlist into trackPages in the state, where
-   * the pages are indexed with a maximum of 8 songs per page.
-   */
-  async loadTracks() {
-    let { tracks } = this.props;
-
-    let tracksCopy = tracks.concat([]);
-    let notAllTracksLoaded = true;
-    let pageIndex = 0;
-
-    while (notAllTracksLoaded) {
-      let playlistTrackObjectpage = tracksCopy.splice(0, 8);
-
-      let trackObjectPage = playlistTrackObjectpage.map(playlistTrack => {
-        return playlistTrack.track;
-      });
-
-      if (trackObjectPage.length === 0) {
-        notAllTracksLoaded = false;
-      } else {
-        await this.setState({
-          trackPages: { ...this.state.trackPages, [pageIndex]: trackObjectPage }
-        });
-        pageIndex += 1;
-      }
-    }
   }
 
   /**
@@ -63,20 +26,18 @@ class PlaylistTracklist extends Component {
     };
   }
 
-  /**
-   * Method to refresh the tracklist.
-   *
-   * Since we load the tracks into the state from props, we have to
-   * reload the tracks into state.
-   *
-   * TODO: Use redux to load playlists instead.
-   */
-  refreshTracklist() {
-    this.loadTracks();
-  }
-
   render() {
-    let { trackPages, currentPage } = this.state;
+    let { currentPage } = this.state;
+    let { tracks } = this.props;
+
+    // Copy the tracks and splice the current page from the copy.
+    let tracksCopy = tracks.concat([]);
+    let currentPageTracks = tracksCopy.splice(currentPage * 8, 8);
+
+    // Map the playlist track objects into the actual track objects for display.
+    currentPageTracks = currentPageTracks.map(
+      playlistTrack => playlistTrack.track
+    );
 
     return (
       <div>
@@ -85,24 +46,20 @@ class PlaylistTracklist extends Component {
           <br />
         </div>
         <TrackTable
-          tracks={trackPages[currentPage] || []}
+          tracks={currentPageTracks}
           tracksInPlaylist={true}
           playlistId={this.props.playlistId}
-          refreshTracks={this.refreshTracklist}
         />
         <div className="d-flex justify-content-center">
           <Pagination>
             <Pagination.Prev
-              disabled={this.state.currentPage === 0}
+              disabled={currentPage === 0}
               onClick={this.changeCurrentPageHandler(
                 this.state.currentPage - 1
               )}
             />
             <Pagination.Next
-              disabled={
-                this.state.currentPage ===
-                Object.keys(this.state.trackPages).length - 1
-              }
+              disabled={(currentPage + 1) * 8 >= tracks.length}
               onClick={this.changeCurrentPageHandler(
                 this.state.currentPage + 1
               )}

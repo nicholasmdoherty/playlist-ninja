@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
+import autoBind from "react-autobind";
 import PlaylistCard from "./PlaylistCard";
 import Spacer from "../../../../common/components/Spacer";
 import { loadUsersEditablePlaylists } from "../../../../redux/actions/playlistActions";
@@ -13,6 +14,8 @@ class PersonalPlaylists extends Component {
       playlists: null,
       error: null
     };
+
+    autoBind(this);
   }
 
   componentDidMount() {
@@ -41,7 +44,13 @@ class PersonalPlaylists extends Component {
           </Col>
 
           {playlists.map(playlist => {
-            return <PlaylistCard playlist={playlist} api={this.props.api} />;
+            return (
+              <PlaylistCard
+                playlist={playlist}
+                api={this.props.api}
+                updatePlaylists={this.getPersonalPlaylistData}
+              />
+            );
           })}
         </Row>
       );

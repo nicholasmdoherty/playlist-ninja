@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Image, Button } from "react-bootstrap";
 import autoBind from "react-autobind";
-import { connect } from "react-redux";
 import "./playlists.css";
 import { setSelectedPlaylist } from "../../../../redux/actions/playlistActions";
 import {
@@ -19,6 +18,39 @@ class PlaylistCard extends Component {
   selectPlaylist() {
     this.props.dispatch(
       setSelectedPlaylist(this.props.playlist.id, this.props.api)
+    );
+  }
+
+  /**
+   *  Renders a confirmation alert to make sure that the user wants to unfollow their playlist.
+   */
+
+  unfollowConfirmation() {
+    return new Promise(function(resolve, reject) {
+      let confirmed = window.confirm(
+        "Are you sure you want to unfollow? It will exist on the Spotify system still, but you will not see it in your library."
+      );
+
+      return confirmed ? resolve(true) : reject(false);
+    });
+  }
+
+  /**
+   *  Unfollows the playlist that this PlaylistCard represents.
+   */
+  unfollowPlaylist() {
+    let { playlist, api, updatePlaylists } = this.props;
+
+    this.unfollowConfirmation().then(
+      () => {
+        api.unfollowPlaylist(playlist.id).then(response => {
+          alert("Success");
+          updatePlaylists();
+        });
+      },
+      () => {
+        alert("Did not unfollow playlist.");
+      }
     );
   }
 
@@ -89,7 +121,11 @@ class PlaylistCard extends Component {
 
             {!isBelowExtraSmallBreakpoint() && (
               <div className="desktop-playlist-card-button-wrapper">
-                <Button variant="outline-danger" className="m-1">
+                <Button
+                  variant="outline-danger"
+                  className="m-1"
+                  onClick={this.unfollowPlaylist}
+                >
                   Unfollow
                 </Button>
                 <Button
@@ -108,4 +144,4 @@ class PlaylistCard extends Component {
   }
 }
 
-export default connect()(PlaylistCard);
+export default PlaylistCard;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Image, Button } from "react-bootstrap";
 import autoBind from "react-autobind";
+import { connect } from "react-redux";
 import "./playlists.css";
 import { setSelectedPlaylist } from "../../../../redux/actions/playlistActions";
 import {
@@ -16,9 +17,9 @@ class PlaylistCard extends Component {
   }
 
   selectPlaylist() {
-    this.props.dispatch(
-      setSelectedPlaylist(this.props.playlist.id, this.props.api)
-    );
+    let { updateSelectedPlaylist, api, playlist } = this.props;
+
+    updateSelectedPlaylist(playlist.id, api);
   }
 
   /**
@@ -144,4 +145,14 @@ class PlaylistCard extends Component {
   }
 }
 
-export default PlaylistCard;
+const mapDispatchToProps = dispatch => {
+  return {
+    updateSelectedPlaylist: (playlistId, spotifyApi) =>
+      dispatch(setSelectedPlaylist(playlistId, spotifyApi))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(PlaylistCard);

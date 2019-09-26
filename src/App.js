@@ -75,8 +75,6 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => {};
-
 const mapDispatchToProps = dispatch => {
   return {
     setSpotifyApi: accessToken => dispatch(setSpotifyApiAction(accessToken))
@@ -84,6 +82,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(App);

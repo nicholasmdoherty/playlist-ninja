@@ -5,6 +5,8 @@ import { deepCamelCaseKeys } from "../../../common/constants";
 import Spacer from "../../../common/components/Spacer";
 
 class TopTracks extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
 
@@ -15,16 +17,29 @@ class TopTracks extends Component {
   }
 
   componentDidMount() {
-    this.props.api.spotifyApi.getMyTopTracks({ limit: 12 }).then(
+    this._isMounted = true;
+
+    this.props.api.getMyTopTracks({ limit: 12 }).then(
       data => {
-        this.setState({ topTracks: data.body });
+        if (this._isMounted) {
+          this.setState({ topTracks: data.body });
+        }
       },
       error => {
-        this.setState({ error: deepCamelCaseKeys(error) });
+        if (this._isMounted) {
+          this.setState({ error: deepCamelCaseKeys(error) });
+        }
       }
     );
 
     this.forceUpdate();
+  }
+
+  /**
+   * Sets _isMounted to false so not to call setState on an unmounted component.
+   */
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
@@ -57,7 +72,7 @@ class TopTracks extends Component {
 
 let mapStateToProps = state => {
   return {
-    api: state.api
+    api: state.api.spotifyApi
   };
 };
 

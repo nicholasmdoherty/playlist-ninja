@@ -60,8 +60,8 @@ class PlaylistTrackStatistics extends Component {
           let response = deepCamelCaseKeys(data.body);
 
           if (response.audioFeatures) {
+            trackStatistics = trackStatistics.concat(response.audioFeatures);
           }
-          trackStatistics = trackStatistics.concat(response.audioFeatures);
         });
 
       if (haveToLoop) {

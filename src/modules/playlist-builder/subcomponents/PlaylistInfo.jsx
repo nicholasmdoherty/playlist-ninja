@@ -4,7 +4,7 @@ import { Image, Col, Row, Button } from "react-bootstrap";
 import autoBind from "react-autobind";
 import {
   isBelowSmallBreakpoint,
-  deepCamelCaseKeys
+  deepCamelCaseKeys,
 } from "../../../common/constants";
 
 export default class PlaylistInfo extends Component {
@@ -43,9 +43,11 @@ export default class PlaylistInfo extends Component {
               {playlist.followers.total}{" "}
               {playlist.followers.total == 1 ? "follower" : "followers"}
             </p>
-            <Button onClick={this.generateHypeCurvePlaylist.bind(this)}>
-              Generate Hype Curve Playlist
-            </Button>
+            {/*            
+              <Button onClick={this.generateHypeCurvePlaylist.bind(this)}>
+                Generate Hype Curve Playlist
+              </Button>
+            */}
           </Col>
         </Row>
       </div>
@@ -57,7 +59,7 @@ export default class PlaylistInfo extends Component {
 
     let trackIds = [];
 
-    playlist.tracks.forEach(playlistTrack => {
+    playlist.tracks.forEach((playlistTrack) => {
       trackIds.push(playlistTrack.track.id);
     });
 
@@ -67,7 +69,7 @@ export default class PlaylistInfo extends Component {
     if (trackIds.length !== 0) {
       await api
         .getAudioFeaturesForTracks(trackIds.splice(0, 100))
-        .then(data => {
+        .then((data) => {
           let response = deepCamelCaseKeys(data.body);
 
           if (response.audioFeatures) {
@@ -81,7 +83,7 @@ export default class PlaylistInfo extends Component {
         while (haveToLoop) {
           await api
             .getAudioFeaturesForTracks(trackIds.splice(0, 100))
-            .then(data => {
+            .then((data) => {
               let response = deepCamelCaseKeys(data.body);
               trackStatistics = trackStatistics.concat(response.audioFeatures);
               numOfStatisticsReceived += response.audioFeatures.length;
@@ -93,18 +95,18 @@ export default class PlaylistInfo extends Component {
         }
       }
 
-      var hypeScores = trackStatistics.map(trackStatistic => {
+      var hypeScores = trackStatistics.map((trackStatistic) => {
         let {
           danceability,
           energy,
           valence,
           tempo,
           popularity,
-          id
+          id,
         } = trackStatistic;
         return {
           trackUri: "spotify:track:" + id,
-          score: danceability * energy * valence * tempo * popularity
+          score: danceability * energy * valence * tempo * popularity,
         };
       });
 
@@ -128,20 +130,20 @@ export default class PlaylistInfo extends Component {
 
       let curvedScores = ascendingScores.concat(descendingScores);
       let userId = "";
-      await api.getMe().then(response => {
+      await api.getMe().then((response) => {
         userId = response.body.id;
       });
 
       var playlistId = "";
       await api
         .createPlaylist(userId, playlist.name + " - Hype Curve")
-        .then(response => {
+        .then((response) => {
           playlistId = response.body.id;
         });
 
       await api.addTracksToPlaylist(
         playlistId,
-        curvedScores.map(score => score.trackUri)
+        curvedScores.map((score) => score.trackUri)
       );
     }
   }

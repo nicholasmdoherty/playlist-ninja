@@ -40,7 +40,7 @@ export function deepCamelCaseKeys(variable) {
 
     return variable;
   } else if (variable instanceof Object) {
-    Object.keys(variable).forEach(key => {
+    Object.keys(variable).forEach((key) => {
       variable[key] = deepCamelCaseKeys(variable[key]);
     });
 
@@ -76,6 +76,6 @@ export function msToHM(ms) {
 
   return {
     hours,
-    minutes
+    minutes,
   };
 }

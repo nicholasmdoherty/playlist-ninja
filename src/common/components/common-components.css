@@ -32,3 +32,9 @@
 .main-nav-icon-phone {
   font-size: 1.4em;
 }
+
+@media (max-width: 768px) {
+  .text-center-md {
+    text-align: center !important;
+  }
+}

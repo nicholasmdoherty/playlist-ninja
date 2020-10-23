@@ -37,9 +37,9 @@ export default class Navbar extends Component {
               }`}
             />
             {isBelowSmallBreakpoint() ? (
-              <h6 className="m-0">PLAYLIST NINJA</h6>
+              <h6 className="m-0 arts-and-crafts-font">PLAYLIST NINJA</h6>
             ) : (
-              <h4 className="m-0">PLAYLIST NINJA</h4>
+              <h4 className="m-0 arts-and-crafts-font">PLAYLIST NINJA</h4>
             )}
           </div>
 

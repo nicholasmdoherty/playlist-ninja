@@ -27,6 +27,13 @@ class App extends React.Component {
   componentDidMount() {
     // Add an event listener to update the App component
     // when the hash link changes. This is to check if the cookie is expired or not.
+    const scrollFunction = function () {
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener("hashchange", scrollFunction);
+    window.addEventListener("beforeunload", scrollFunction);
+
     window.addEventListener("hashchange", () => {
       this.checkForLogin();
     });

@@ -73,3 +73,13 @@ code {
   word-break: break-word;
   hyphens: auto;
 }
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.flex-content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

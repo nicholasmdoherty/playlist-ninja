@@ -18,7 +18,7 @@ class App extends React.Component {
 
     this.state = {
       loggedIn: false,
-      token: ""
+      token: "",
     };
 
     autoBind(this);
@@ -67,7 +67,9 @@ class App extends React.Component {
               </Container>
             </div>
           ) : (
-            <LoginPage />
+            <Container>
+              <LoginPage />
+            </Container>
           )}
         </div>
       </HashRouter>
@@ -75,13 +77,10 @@ class App extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setSpotifyApi: accessToken => dispatch(setSpotifyApiAction(accessToken))
+    setSpotifyApi: (accessToken) => dispatch(setSpotifyApiAction(accessToken)),
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(App);
+export default connect(null, mapDispatchToProps)(App);

@@ -37,4 +37,8 @@
   .text-center-md {
     text-align: center !important;
   }
+
+  .mobile-title-font {
+    font-size: 9vw;
+  }
 }

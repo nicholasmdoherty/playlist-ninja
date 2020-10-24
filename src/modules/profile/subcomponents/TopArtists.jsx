@@ -13,7 +13,7 @@ class TopArtists extends Component {
 
     this.state = {
       topArtists: null,
-      error: null
+      error: null,
     };
   }
 
@@ -23,42 +23,44 @@ class TopArtists extends Component {
   componentDidMount() {
     this._isMounted = true;
 
-    this.props.api.getMyTopArtists({ limit: 6, time_range: 'short_term' }).then(
-      data => {
+    this.props.api.getMyTopArtists({ limit: 6, time_range: "short_term" }).then(
+      (data) => {
         // Only call setState in async functions if mounted
         if (this._isMounted) {
           this.setState({ topShortTermArtists: data.body });
         }
       },
-      error => {
+      (error) => {
         if (this._isMounted) {
           this.setState({ error: deepCamelCaseKeys(error) });
         }
       }
     );
 
-    this.props.api.getMyTopArtists({ limit: 6, time_range: 'medium_term' }).then(
-      data => {
-        // Only call setState in async functions if mounted
-        if (this._isMounted) {
-          this.setState({ topMediumTermArtists: data.body });
+    this.props.api
+      .getMyTopArtists({ limit: 6, time_range: "medium_term" })
+      .then(
+        (data) => {
+          // Only call setState in async functions if mounted
+          if (this._isMounted) {
+            this.setState({ topMediumTermArtists: data.body });
+          }
+        },
+        (error) => {
+          if (this._isMounted) {
+            this.setState({ error: deepCamelCaseKeys(error) });
+          }
         }
-      },
-      error => {
-        if (this._isMounted) {
-          this.setState({ error: deepCamelCaseKeys(error) });
-        }
-      }
-    );
+      );
 
-    this.props.api.getMyTopArtists({ limit: 6, time_range: 'long_term' }).then(
-      data => {
+    this.props.api.getMyTopArtists({ limit: 6, time_range: "long_term" }).then(
+      (data) => {
         // Only call setState in async functions if mounted
         if (this._isMounted) {
           this.setState({ topLongTermArtists: data.body });
         }
       },
-      error => {
+      (error) => {
         if (this._isMounted) {
           this.setState({ error: deepCamelCaseKeys(error) });
         }
@@ -88,15 +90,15 @@ class TopArtists extends Component {
             <Tab eventKey="shortTerm" title="Short Term">
               <Row className="pt-4">
                 {this.state.topShortTermArtists &&
-                  this.state.topShortTermArtists.items.map(topArtist => {
+                  this.state.topShortTermArtists.items.map((topArtist) => {
                     return (
-                      <Col xs={6} sm={4} lg={2} className="text-center">
+                      <Col xs={6} lg={2} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topArtist.images[0].url}
                             roundedCircle
                             fluid
-                            className="drop-shadow mb-3"
+                            className="drop-shadow mb-3 object-fit-cover"
                           />
                           <p className="lead">{topArtist.name}</p>
                         </div>
@@ -108,15 +110,15 @@ class TopArtists extends Component {
             <Tab eventKey="mediumTerm" title="Medium Term">
               <Row className="pt-4">
                 {this.state.topMediumTermArtists &&
-                  this.state.topMediumTermArtists.items.map(topArtist => {
+                  this.state.topMediumTermArtists.items.map((topArtist) => {
                     return (
-                      <Col xs={6} sm={4} lg={2} className="text-center">
+                      <Col xs={6} lg={2} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topArtist.images[0].url}
                             roundedCircle
                             fluid
-                            className="drop-shadow mb-3"
+                            className="drop-shadow mb-3 object-fit-cover"
                           />
                           <p className="lead">{topArtist.name}</p>
                         </div>
@@ -128,15 +130,15 @@ class TopArtists extends Component {
             <Tab eventKey="longTerm" title="Long Term">
               <Row className="pt-4">
                 {this.state.topLongTermArtists &&
-                  this.state.topLongTermArtists.items.map(topArtist => {
+                  this.state.topLongTermArtists.items.map((topArtist) => {
                     return (
-                      <Col xs={6} sm={4} lg={2} className="text-center">
+                      <Col xs={6} lg={2} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topArtist.images[0].url}
                             roundedCircle
                             fluid
-                            className="drop-shadow mb-3"
+                            className="drop-shadow mb-3 object-fit-cover"
                           />
                           <p className="lead">{topArtist.name}</p>
                         </div>
@@ -147,15 +149,14 @@ class TopArtists extends Component {
             </Tab>
           </Tabs>
         </Col>
-
       </Row>
     );
   }
 }
 
-let mapStateToProps = state => {
+let mapStateToProps = (state) => {
   return {
-    api: state.api.spotifyApi
+    api: state.api.spotifyApi,
   };
 };
 

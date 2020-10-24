@@ -72,90 +72,43 @@ class PlaylistCard extends Component {
     let { playlist } = this.props;
 
     return (
-      <Col xs={12} sm={12} lg={12} className="playlist-card-col">
-        <Row
-          className={
-            !isBelowSmallBreakpoint()
-              ? "playlist-card content-card playlist-row-height p-1"
-              : "playlist-card content-card p-1"
-          }
-        >
-          <Col
-            xs={12}
-            sm={6}
-            className={`playlist-card-content text-center d-flex ${
-              isBelowExtraSmallBreakpoint() ? "space-between" : ""
-            }`}
-          >
-            {playlist.images[0] ? (
-              <Image
-                src={playlist.images[0].url}
-                className={
-                  isBelowSmallBreakpoint()
-                    ? "mobile-playlist-card-image"
-                    : "desktop-playlist-card-image"
-                }
-              />
-            ) : (
-              <div className={isBelowSmallBreakpoint() ? "w-25" : ""} />
-            )}
+      <Col
+        xs={12}
+        sm={6}
+        xl={4}
+        className={isBelowSmallBreakpoint() ? "p-4" : "p-3"}
+      >
+        <div className="playlist-card-content text-center d-flex playlist-card content-card flex-column pt-4">
+          {playlist.images[0] ? (
+            <Image
+              src={playlist.images[0].url}
+              className="mobile-playlist-card-image"
+            />
+          ) : (
+            <div className={isBelowSmallBreakpoint() ? "w-25" : ""} />
+          )}
+          <div className="text-left">
+            <h5 className="m-1 ml-2">{playlist.name}</h5>
+            <p className="ml-2 m-0">{playlist.public ? "Public" : "Private"}</p>
+          </div>
 
-            <div
-              className={
-                isBelowExtraSmallBreakpoint() ? "text-right" : "text-left"
-              }
+          <div className="mobile-playlist-card-button-wrapper">
+            <Button
+              variant="primary"
+              className="pn-primary-button"
+              onClick={this.selectPlaylist}
             >
-              <h5 className="m-1 ml-2">{playlist.name}</h5>
-              <p className="ml-2 m-0">
-                {playlist.public ? "Public" : "Private"}
-              </p>
-            </div>
-          </Col>
-
-          <Col
-            xs={12}
-            sm={6}
-            className={isBelowExtraSmallBreakpoint() ? "p-0" : ""}
-          >
-            {isBelowExtraSmallBreakpoint() && (
-              <div className="mobile-playlist-card-button-wrapper">
-                <Button
-                  variant="primary"
-                  className="pn-primary-button"
-                  onClick={this.selectPlaylist}
-                >
-                  EDIT
-                </Button>
-                <Button
-                  variant="outline-danger"
-                  className="pn-danger-button"
-                  onClick={this.unfollowPlaylist}
-                >
-                  UNFOLLOW
-                </Button>
-              </div>
-            )}
-
-            {!isBelowExtraSmallBreakpoint() && (
-              <div className="desktop-playlist-card-button-wrapper">
-                <Button
-                  variant="outline-danger"
-                  className="m-1 pn-danger-button"
-                  onClick={this.unfollowPlaylist}
-                >
-                  UNFOLLOW
-                </Button>
-                <Button
-                  variant="primary"
-                  className="m-1 pn-primary-button"
-                  onClick={this.selectPlaylist}
-                >
-                  EDIT
-                </Button>
-              </div>
-            )}
-          </Col>
-        </Row>
+              <i className="fa fa-pencil"></i>
+            </Button>
+            <Button
+              variant="outline-danger"
+              className="pn-danger-button"
+              onClick={this.unfollowPlaylist}
+            >
+              <i className="fa fa-trash"></i>
+            </Button>
+          </div>
+        </div>
       </Col>
     );
   }

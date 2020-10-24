@@ -12,7 +12,7 @@ class PersonalPlaylists extends Component {
 
     this.state = {
       playlists: null,
-      error: null
+      error: null,
     };
 
     autoBind(this);
@@ -37,22 +37,26 @@ class PersonalPlaylists extends Component {
       let { playlists } = this.props;
 
       return (
-        <Row className="text-center m-3 pb-2">
-          <Col xs={12}>
-            <h3 className="display-5"> My Playlists </h3>
-            <Spacer percentage={3} />
-          </Col>
+        <div>
+          <Row className="text-center m-3 pb-2">
+            <Col xs={12}>
+              <h3 className="display-5"> My Playlists </h3>
+              <Spacer percentage={3} />
+            </Col>
+          </Row>
 
-          {playlists.map(playlist => {
-            return (
-              <PlaylistCard
-                playlist={playlist}
-                api={this.props.api}
-                updatePlaylists={this.getPersonalPlaylistData}
-              />
-            );
-          })}
-        </Row>
+          <Row>
+            {playlists.map((playlist) => {
+              return (
+                <PlaylistCard
+                  playlist={playlist}
+                  api={this.props.api}
+                  updatePlaylists={this.getPersonalPlaylistData}
+                />
+              );
+            })}
+          </Row>
+        </div>
       );
     } else {
       return null;
@@ -60,21 +64,18 @@ class PersonalPlaylists extends Component {
   }
 }
 
-export const mapStateToProps = state => {
+export const mapStateToProps = (state) => {
   return {
     api: state.api.spotifyApi,
-    playlists: state.playlist.editablePlaylists
+    playlists: state.playlist.editablePlaylists,
   };
 };
 
-export const mapDispatchToProps = dispatch => {
+export const mapDispatchToProps = (dispatch) => {
   return {
     loadEditablePlaylists: (userId, spotifyApi) =>
-      dispatch(loadUsersEditablePlaylists(userId, spotifyApi))
+      dispatch(loadUsersEditablePlaylists(userId, spotifyApi)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PersonalPlaylists);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalPlaylists);

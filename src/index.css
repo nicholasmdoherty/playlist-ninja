@@ -83,3 +83,33 @@ code {
   align-items: center;
   justify-content: center;
 }
+
+.pn-primary-button {
+  border: 3px solid #80c5f0;
+  background-color: transparent;
+  border-radius: 0.6em;
+  font-weight: 700;
+  color: #80c5f0;
+}
+
+.pn-primary-button:hover,
+.pn-primary-button:active {
+  border: 3px solid #80c5f0 !important;
+  background-color: #b5d2e23a !important;
+  color: #80c5f0 !important;
+}
+
+.pn-danger-button {
+  border: 3px solid #f08080;
+  background-color: transparent;
+  border-radius: 0.6em;
+  font-weight: 700;
+  color: #f08080;
+}
+
+.pn-danger-button:hover,
+.pn-danger-button:active {
+  border: 3px solid #f08080 !important;
+  background-color: #f0808059 !important;
+  color: #f08080 !important;
+}

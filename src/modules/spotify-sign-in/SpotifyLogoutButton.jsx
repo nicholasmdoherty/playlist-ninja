@@ -20,12 +20,11 @@ class SpotifyLogoutButton extends Component {
     return (
       <Button
         variant="link"
+        className="pn-danger-button mt-3 px-2"
         onClick={this.handleLogout}
         style={{ color: "red", width: "fit-content" }}
       >
-        <p className="lead" style={{ fontSize: "1rem" }}>
-          Log Out
-        </p>
+        LOG OUT
       </Button>
     );
   }

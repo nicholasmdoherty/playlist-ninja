@@ -7,7 +7,7 @@ import "./playlists.css";
 import { setSelectedPlaylist } from "../../../../redux/actions/playlistActions";
 import {
   isBelowSmallBreakpoint,
-  isBelowExtraSmallBreakpoint
+  isBelowExtraSmallBreakpoint,
 } from "../../../../common/constants";
 
 class PlaylistCard extends Component {
@@ -37,7 +37,7 @@ class PlaylistCard extends Component {
       confirmButtonText: "Yes, unfollow this playlist.",
       cancelButtonText: "Cancel",
       allowEscapeKey: false,
-      allowOutsideClick: false
+      allowOutsideClick: false,
     });
   }
 
@@ -47,12 +47,12 @@ class PlaylistCard extends Component {
   unfollowPlaylist() {
     let { playlist, api, updatePlaylists } = this.props;
 
-    this.unfollowConfirmation().then(result => {
+    this.unfollowConfirmation().then((result) => {
       if (result.value) {
         api.unfollowPlaylist(playlist.id).then(() => {
           Swal.fire({
             type: "success",
-            text: `Unfollowed playlist: "${playlist.name}"`
+            text: `Unfollowed playlist: "${playlist.name}"`,
           });
           updatePlaylists();
         });
@@ -121,16 +121,17 @@ class PlaylistCard extends Component {
               <div className="mobile-playlist-card-button-wrapper">
                 <Button
                   variant="primary"
-                  className=""
+                  className="pn-primary-button"
                   onClick={this.selectPlaylist}
                 >
-                  Edit
+                  EDIT
                 </Button>
                 <Button
                   variant="outline-danger"
+                  className="pn-danger-button"
                   onClick={this.unfollowPlaylist}
                 >
-                  Unfollow
+                  UNFOLLOW
                 </Button>
               </div>
             )}
@@ -139,17 +140,17 @@ class PlaylistCard extends Component {
               <div className="desktop-playlist-card-button-wrapper">
                 <Button
                   variant="outline-danger"
-                  className="m-1"
+                  className="m-1 pn-danger-button"
                   onClick={this.unfollowPlaylist}
                 >
-                  Unfollow
+                  UNFOLLOW
                 </Button>
                 <Button
                   variant="primary"
-                  className="m-1"
+                  className="m-1 pn-primary-button"
                   onClick={this.selectPlaylist}
                 >
-                  Edit
+                  EDIT
                 </Button>
               </div>
             )}
@@ -160,14 +161,11 @@ class PlaylistCard extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     updateSelectedPlaylist: (playlistId, spotifyApi) =>
-      dispatch(setSelectedPlaylist(playlistId, spotifyApi))
+      dispatch(setSelectedPlaylist(playlistId, spotifyApi)),
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(PlaylistCard);
+export default connect(null, mapDispatchToProps)(PlaylistCard);

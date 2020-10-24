@@ -5,7 +5,7 @@ export let spotifyScopes =
   "playlist-modify-public playlist-read-private playlist-read-collaborative " +
   "user-read-email playlist-modify-private streaming";
 
-export let redirectURI = "https://playlistninja.app";
+export let redirectURI = "http://localhost:3000";
 export let clientID = "90a54f792a9e4fff94eec8d0c0075bd0";
 
 export function setCookie(cname, cvalue, expirationHours) {

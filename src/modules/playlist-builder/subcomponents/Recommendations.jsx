@@ -15,19 +15,19 @@ class Recommendations extends Component {
       selectedArtistSeeds: {
         0: "",
         1: "",
-        2: ""
+        2: "",
       },
       selectedTrackSeeds: {
         0: "",
         1: "",
-        2: ""
+        2: "",
       },
       targetValence: 0.5,
       targetEnergy: 0.5,
       targetDanceability: 0.5,
       targetBPM: 100,
       targetPopularity: 50,
-      error: null
+      error: null,
     };
 
     autoBind(this);
@@ -61,14 +61,14 @@ class Recommendations extends Component {
 
     let atLeastOneSeedSelected = false;
 
-    Object.keys(selectedArtistSeeds).forEach(index => {
+    Object.keys(selectedArtistSeeds).forEach((index) => {
       if (selectedArtistSeeds[index] !== "") {
         atLeastOneSeedSelected = true;
       }
     });
 
     if (!atLeastOneSeedSelected) {
-      Object.keys(selectedTrackSeeds).forEach(index => {
+      Object.keys(selectedTrackSeeds).forEach((index) => {
         if (selectedTrackSeeds[index] !== "") {
           atLeastOneSeedSelected = true;
         }
@@ -79,7 +79,7 @@ class Recommendations extends Component {
       this.updateRecommendations();
     } else {
       this.setState({
-        error: "You must choose at least one seed for recommendations."
+        error: "You must choose at least one seed for recommendations.",
       });
     }
   }
@@ -99,18 +99,18 @@ class Recommendations extends Component {
       targetEnergy,
       targetDanceability,
       targetBPM,
-      targetPopularity
+      targetPopularity,
     } = this.state;
 
     let seedArtistIds = [];
-    Object.keys(selectedArtistSeeds).forEach(seedIndex => {
+    Object.keys(selectedArtistSeeds).forEach((seedIndex) => {
       if (selectedArtistSeeds[seedIndex] !== "") {
         seedArtistIds.push(selectedArtistSeeds[seedIndex]);
       }
     });
 
     let seedTrackIds = [];
-    Object.keys(selectedTrackSeeds).forEach(seedIndex => {
+    Object.keys(selectedTrackSeeds).forEach((seedIndex) => {
       if (selectedTrackSeeds[seedIndex] !== "") {
         seedTrackIds.push(selectedTrackSeeds[seedIndex]);
       }
@@ -124,14 +124,14 @@ class Recommendations extends Component {
       target_danceability: targetDanceability,
       target_popularity: targetPopularity,
       seed_artists: seedArtistIds,
-      seed_tracks: seedTrackIds
+      seed_tracks: seedTrackIds,
     };
 
     api.getRecommendations(query).then(
-      data => {
+      (data) => {
         this.setState({ recommendedTracks: data.body.tracks, error: null });
       },
-      error => {
+      (error) => {
         this.setState({ error: error.message });
       }
     );
@@ -149,7 +149,7 @@ class Recommendations extends Component {
     let artistSeeds = [];
     let trackSeeds = [];
 
-    [0, 1, 2].forEach(seedIndex => {
+    [0, 1, 2].forEach((seedIndex) => {
       if (selectedArtistSeeds[seedIndex] !== "") {
         artistSeeds.push(selectedArtistSeeds[seedIndex]);
       }
@@ -169,12 +169,12 @@ class Recommendations extends Component {
    * @param {number} index The index of the seed artist to change.
    */
   handleAddSeedArtist(index) {
-    return event => {
+    return (event) => {
       this.setState({
         selectedArtistSeeds: {
           ...this.state.selectedArtistSeeds,
-          [index]: event.target.value
-        }
+          [index]: event.target.value,
+        },
       });
     };
   }
@@ -189,8 +189,8 @@ class Recommendations extends Component {
 
     let artists = {};
 
-    playlistTracks.forEach(playlistTrack => {
-      playlistTrack.track.artists.forEach(artist => {
+    playlistTracks.forEach((playlistTrack) => {
+      playlistTrack.track.artists.forEach((artist) => {
         artists[artist.id] = artist.name;
       });
     });
@@ -204,7 +204,7 @@ class Recommendations extends Component {
             <h5 className="lead">Similar Artists</h5>
           </Col>
 
-          {[1, 2, 3].map(seedNumber => {
+          {[1, 2, 3].map((seedNumber) => {
             let { selectedArtistSeeds } = this.state;
 
             return (
@@ -219,7 +219,7 @@ class Recommendations extends Component {
                   }
                 >
                   <option value="">None</option>
-                  {artistIdArray.map(artistId => {
+                  {artistIdArray.map((artistId) => {
                     return (
                       <option value={artistId}>{artists[artistId]}</option>
                     );
@@ -240,12 +240,12 @@ class Recommendations extends Component {
    * @param {number} index The index of the seed track to change.
    */
   handleAddSeedTrack(index) {
-    return event => {
+    return (event) => {
       this.setState({
         selectedTrackSeeds: {
           ...this.state.selectedTrackSeeds,
-          [index]: event.target.value
-        }
+          [index]: event.target.value,
+        },
       });
     };
   }
@@ -260,7 +260,7 @@ class Recommendations extends Component {
 
     let tracks = {};
 
-    playlistTracks.forEach(playlistTrack => {
+    playlistTracks.forEach((playlistTrack) => {
       let track = playlistTrack.track;
 
       tracks[track.id] = track.name;
@@ -275,7 +275,7 @@ class Recommendations extends Component {
             <h5 className="lead">Similar Tracks</h5>
           </Col>
 
-          {[1, 2, 3].map(seedNumber => {
+          {[1, 2, 3].map((seedNumber) => {
             let { selectedTrackSeeds } = this.state;
 
             return (
@@ -290,7 +290,7 @@ class Recommendations extends Component {
                   }
                 >
                   <option value="">None</option>
-                  {trackIdArray.map(trackId => {
+                  {trackIdArray.map((trackId) => {
                     return <option value={trackId}>{tracks[trackId]}</option>;
                   })}
                 </Form.Control>
@@ -323,7 +323,7 @@ class Recommendations extends Component {
             step={1}
             defaultValue={50}
             value={this.state.targetDanceability * 100}
-            onChange={value =>
+            onChange={(value) =>
               this.setState({ targetDanceability: value / 100 })
             }
             className="w-50"
@@ -337,7 +337,7 @@ class Recommendations extends Component {
             step={1}
             defaultValue={50}
             value={this.state.targetEnergy * 100}
-            onChange={value => this.setState({ targetEnergy: value / 100 })}
+            onChange={(value) => this.setState({ targetEnergy: value / 100 })}
             className="w-50"
           />
         </Col>
@@ -350,7 +350,7 @@ class Recommendations extends Component {
             step={1}
             defaultValue={50}
             value={this.state.targetValence * 100}
-            onChange={value => this.setState({ targetValence: value / 100 })}
+            onChange={(value) => this.setState({ targetValence: value / 100 })}
             className="w-50"
           />
         </Col>
@@ -363,7 +363,7 @@ class Recommendations extends Component {
             step={1}
             defaultValue={100}
             value={this.state.targetBPM}
-            onChange={value => this.setState({ targetBPM: value })}
+            onChange={(value) => this.setState({ targetBPM: value })}
             className="w-50"
           />
         </Col>
@@ -376,7 +376,7 @@ class Recommendations extends Component {
             step={1}
             defaultValue={100}
             value={this.state.targetPopularity}
-            onChange={value => this.setState({ targetPopularity: value })}
+            onChange={(value) => this.setState({ targetPopularity: value })}
             className="w-50"
           />
         </Col>
@@ -393,13 +393,16 @@ class Recommendations extends Component {
           <h4> Generate Recommendations </h4>
           <br />
         </div>
-        <Form onSubmit={data => console.log(data)}>
+        <Form onSubmit={(data) => console.log(data)}>
           {this.renderSeedTracksDropdown()}
           {this.renderSeedArtistsDropdown()}
           {this.renderAudioFeatureSliders()}
         </Form>
-        <Button onClick={this.handleRecommendationGeneration}>
-          Generate Tracks
+        <Button
+          className="pn-primary-button"
+          onClick={this.handleRecommendationGeneration}
+        >
+          GENERATE TRACKS
         </Button>
         <hr />
         {error && (
@@ -429,20 +432,17 @@ class Recommendations extends Component {
  *
  * @param {*} state The incoming redux state
  */
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    api: state.api.spotifyApi
+    api: state.api.spotifyApi,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     setSelectedPlaylist: (playlistId, spotifyApi) =>
-      dispatch(setSelectedPlaylist(playlistId, spotifyApi))
+      dispatch(setSelectedPlaylist(playlistId, spotifyApi)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Recommendations);
+export default connect(mapStateToProps, mapDispatchToProps)(Recommendations);

@@ -24,13 +24,13 @@ class TrackTable extends Component {
         api
           .play({
             context_uri: `spotify:playlist:${playlistId}`,
-            offset: { uri: `spotify:track:${spotifyTrackId}` }
+            offset: { uri: `spotify:track:${spotifyTrackId}` },
           })
           .then(
-            response => {
+            (response) => {
               //TODO: Handle response data and store currently playing.
             },
-            error => {
+            (error) => {
               //TODO: Handle error case
               console.error(error);
             }
@@ -38,13 +38,13 @@ class TrackTable extends Component {
       } else {
         api
           .play({
-            uris: [`spotify:track:${spotifyTrackId}`]
+            uris: [`spotify:track:${spotifyTrackId}`],
           })
           .then(
-            response => {
+            (response) => {
               //TODO: Handle response data and store currently playing.
             },
-            error => {
+            (error) => {
               //TODO: Handle error case
               console.error(error);
             }
@@ -64,7 +64,7 @@ class TrackTable extends Component {
       api
         .addTracksToPlaylist(playlistId, [`spotify:track:${spotifyTrackId}`])
         .then(
-          async response => {
+          async (response) => {
             // refresh the selected playlist
             // TODO: make an action to add it instead of reloading the whole playlist.
             await setSelectedPlaylist(playlistId, api);
@@ -72,7 +72,7 @@ class TrackTable extends Component {
               this.props.updateCallback();
             }
           },
-          error => {
+          (error) => {
             //TODO: Handle error case
             console.error(error);
           }
@@ -90,10 +90,10 @@ class TrackTable extends Component {
 
       api
         .removeTracksFromPlaylist(playlistId, [
-          { uri: `spotify:track:${spotifyTrackId}` }
+          { uri: `spotify:track:${spotifyTrackId}` },
         ])
         .then(
-          async response => {
+          async (response) => {
             // refresh the selected playlist
             // TODO: make an action to add it instead of reloading the whole playlist.
             await setSelectedPlaylist(playlistId, api);
@@ -102,7 +102,7 @@ class TrackTable extends Component {
               this.props.updateCallback();
             }
           },
-          error => {
+          (error) => {
             //TODO: Handle error case
             console.error(error);
           }
@@ -115,7 +115,7 @@ class TrackTable extends Component {
       <Table responsive striped hover size="sm" className="text-left">
         <thead></thead>
         <tbody>
-          {this.props.tracks.map(track => {
+          {this.props.tracks.map((track) => {
             return (
               <tr>
                 <td className="maxw-50-view">
@@ -142,7 +142,7 @@ class TrackTable extends Component {
                   {this.props.tracksInPlaylist ? (
                     <Button
                       onClick={this.handleRemoveTrackFromPlaylist(track.id)}
-                      className="mr-1 mt-1 mb-1"
+                      className="mr-1 mt-1 mb-1 pn-danger-button"
                       variant="danger"
                     >
                       -
@@ -150,17 +150,17 @@ class TrackTable extends Component {
                   ) : (
                     <Button
                       onClick={this.handleAddTrackToPlaylist(track.id)}
-                      className="mr-1 mt-1 mb-1"
+                      className="mr-1 mt-1 mb-1 pn-primary-button"
                     >
                       +
                     </Button>
                   )}
                   <Button
-                    className="ml-1 mt-1 mb-1"
+                    className="ml-1 mt-1 mb-1 pn-primary-button"
                     onClick={this.handlePlayTrackOnSpotify(track.id)}
                   >
                     {" "}
-                    Play{" "}
+                    PLAY{" "}
                   </Button>
                 </td>
               </tr>
@@ -172,20 +172,17 @@ class TrackTable extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    api: state.api.spotifyApi
+    api: state.api.spotifyApi,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     setSelectedPlaylist: (playlistId, spotifyApi) =>
-      dispatch(setSelectedPlaylist(playlistId, spotifyApi))
+      dispatch(setSelectedPlaylist(playlistId, spotifyApi)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TrackTable);
+export default connect(mapStateToProps, mapDispatchToProps)(TrackTable);

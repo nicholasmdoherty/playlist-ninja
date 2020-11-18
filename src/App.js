@@ -11,6 +11,7 @@ import Profile from "./modules/profile/Profile";
 import PlaylistBuilder from "./modules/playlist-builder/PlaylistBuilder";
 import { Container, Row } from "react-bootstrap";
 import autoBind from "react-autobind";
+import MutualMelodiesPreferenceQuiz from "./modules/mutual-melodies-preference-quiz/MutualMelodiesPreferenceQuiz";
 
 class App extends React.Component {
   constructor(props) {
@@ -70,6 +71,7 @@ class App extends React.Component {
                     path="/playlist-builder"
                     component={PlaylistBuilder}
                   />
+                  <Route exact path="/music-preference-quiz" component={MutualMelodiesPreferenceQuiz} />
                 </Row>
               </Container>
             </div>

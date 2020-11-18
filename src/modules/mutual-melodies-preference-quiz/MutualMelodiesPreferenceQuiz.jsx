@@ -127,8 +127,8 @@ class MutualMelodiesPreferenceQuiz extends Component {
     let dimensionScores = {
       RC: 0,
       IR: 0,
-      UC: 0,
-      ER: 0
+      UC: 0,      
+      ER: 0 
     }
 
     topArtists.body.items.forEach((artist) => {
@@ -156,6 +156,8 @@ class MutualMelodiesPreferenceQuiz extends Component {
         return key
       } else if (dimensionScores[key] > dimensionScores[prev]) {
         return key
+      } else {
+        return prev
       }
     }, null)
 
@@ -183,8 +185,6 @@ class MutualMelodiesPreferenceQuiz extends Component {
     let involvementLevelCode = this.getInvolvementLevelScore();
 
     let genreDataScore = await this.getMusicDimensionScores()
-
-    debugger
 
     this.setState({preferenceCode: `${involvementLevelCode}-${scoredMusicUseCases[0].code}${scoredMusicUseCases[1].code}-${genreDataScore.highestDimension}`})
     window.scrollTo({top: 0, left: 0, behavior: "smooth"})

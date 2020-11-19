@@ -27,44 +27,28 @@ class MutualMelodiesPreferenceQuiz extends Component {
       preferenceCode: "",
       questions: [
         {
-          text: "Music helps me get through my life",
-          category: questionCategories.COPING,
-        },
-        {
           text: "With music I feel less lonely when alone",
           category: questionCategories.COPING,
         },
         {
-          text: "I always play music when I feel sad",
-          category: questionCategories.COPING,
-        },
-        {
-          text: "With music I can vent aggression",
-          category: questionCategories.COPING,
-        },
-        {
-          text: "I find it important that my friends listen to the same music",
-          category: questionCategories.SOCIAL_IDENTITY,
-        },
-        {
-          text: "I can’t be friends with someone who dislikes my music",
-          category: questionCategories.SOCIAL_IDENTITY,
-        },
-        {
-          text: "My friends have the same music taste as I do",
-          category: questionCategories.SOCIAL_IDENTITY,
+          text: "Music creates a good atmosphere when with others",
+          category: questionCategories.MOOD_ENHANCEMENT,
         },
         {
           text: "I recognize myself in the lyrics of my favourite artists",
           category: questionCategories.PERSONAL_IDENTITY,
         },
         {
-          text: "Lyrics of my music often express how I feel",
-          category: questionCategories.PERSONAL_IDENTITY,
+          text: "I influence my friends with my music taste",
+          category: questionCategories.INVOLVEMENT_LEVEL,
         },
         {
-          text: "My favourite artists have ideas that appeal to me",
-          category: questionCategories.PERSONAL_IDENTITY,
+          text: "My friends have the same music taste as I do",
+          category: questionCategories.SOCIAL_IDENTITY,
+        },
+        {
+          text: "Can’t live without music",
+          category: questionCategories.INVOLVEMENT_LEVEL,
         },
         {
           text: "Artists are an example to me",
@@ -75,11 +59,27 @@ class MutualMelodiesPreferenceQuiz extends Component {
           category: questionCategories.MOOD_ENHANCEMENT,
         },
         {
-          text: "Music helps against boredom",
-          category: questionCategories.MOOD_ENHANCEMENT,
+          text: "With music I can vent aggression",
+          category: questionCategories.COPING,
         },
         {
-          text: "Music creates a good atmosphere when with others",
+          text: "I find it important that my friends listen to the same music",
+          category: questionCategories.SOCIAL_IDENTITY,
+        },
+        {
+          text: "Lyrics of my music often express how I feel",
+          category: questionCategories.PERSONAL_IDENTITY,
+        },
+        {
+          text: "Music helps me get through my life",
+          category: questionCategories.COPING,
+        },
+        {
+          text: "My favourite artists have ideas that appeal to me",
+          category: questionCategories.PERSONAL_IDENTITY,
+        },
+        {
+          text: "Music helps against boredom",
           category: questionCategories.MOOD_ENHANCEMENT,
         },
         {
@@ -91,15 +91,15 @@ class MutualMelodiesPreferenceQuiz extends Component {
           category: questionCategories.INVOLVEMENT_LEVEL,
         },
         {
+          text: "I can’t be friends with someone who dislikes my music",
+          category: questionCategories.SOCIAL_IDENTITY,
+        },
+        {
+          text: "I always play music when I feel sad",
+          category: questionCategories.COPING,
+        },
+        {
           text: "I know more than peers about music",
-          category: questionCategories.INVOLVEMENT_LEVEL,
-        },
-        {
-          text: "I influence my friends with my music taste",
-          category: questionCategories.INVOLVEMENT_LEVEL,
-        },
-        {
-          text: "Can’t live without music",
           category: questionCategories.INVOLVEMENT_LEVEL,
         },
       ]
@@ -245,9 +245,9 @@ class MutualMelodiesPreferenceQuiz extends Component {
       <div className="mb-5">
         <h3> Mutual Melodies Music Preference Quiz </h3>
         <p>
-          This quiz is designed to give you an understanding of your music preference and what it is made up of. 
-          The quiz determines the music you listen to using the data we get from your Spotify, and the answers to the questions below.
-          There are a few sections to the music preference code.
+          This quiz is designed to give you an understanding of your music listening preference and the different components of it. 
+          The quiz determines the kind of music you listen to using the data we get from your Spotify account, and the reasons for your music listening habits by using the answers to the questions below.
+          When completed, we return a code that represents the configuration of your music taste, and then you can find people with similar music listening preferences.
         </p>
 
       </div>
@@ -263,7 +263,7 @@ class MutualMelodiesPreferenceQuiz extends Component {
             <p >This first section measures how important music is to you and how involved you are. The options are H,M & L (High, Medium, & Low).</p>
           </li>
           <li> 
-          <p className="mb-0"><strong>Second Section: 2 Main Usages for Music.</strong></p>
+          <p className="mb-0"><strong>Second Section: 2 Main Usages for Music Listening.</strong></p>
           <p>This second section shows you your main uses for music, based on your quiz respones. The options are:</p>
           <ul>
             <li>
@@ -286,7 +286,11 @@ class MutualMelodiesPreferenceQuiz extends Component {
           </li>
           <li> 
           <p className="mb-0"><strong>Third Section: Most Prominent Music Dimension</strong></p>
-          <p>This last section shows you the music dimension that your music falls into. The options are:</p>
+          <p>
+            This last section shows you the music dimension that your music falls into. 
+            We use these dimensions, as they represent a few different genres that you may 
+            listen to as opposed to a specific sone. The options are:
+          </p>
           <ul>
             <li>
               <p className="mb-0"><strong>Reflective and Complex (RC)</strong></p>

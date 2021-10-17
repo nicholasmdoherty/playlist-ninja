@@ -39,15 +39,10 @@ class Profile extends Component {
         <div className="profile-wrapper">
           <ProfileInfo profile={profile} />
           <Spacer percentage={5} />
-          <hr className="w-75" />
-          <Spacer percentage={5} />
           <TopArtists />
-          <Spacer percentage={5} />
-          <hr className="w-75" />
           <Spacer percentage={5} />
           <TopTracks />
           <Spacer percentage={5} />
-          <hr className="w-75" />
           <Spacer percentage={5} />
           <PersonalPlaylists userId={profile.id} />
         </div>

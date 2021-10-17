@@ -199,16 +199,16 @@ class Recommendations extends Component {
 
     return (
       <Form.Group controlId="seedArtists">
-        <Row className="w-100 m-0">
+        <Row className="w-100">
           <Col xs={12} className="text-left">
-            <h5 className="lead">Similar Artists</h5>
+            <p className="paragraph-font fw-700">Similar Artists</p>
           </Col>
 
           {[1, 2, 3].map((seedNumber) => {
             let { selectedArtistSeeds } = this.state;
 
             return (
-              <Col sm={12} md={4} className="p-1">
+              <Col sm={12} md={4}>
                 <Form.Control
                   key={seedNumber - 1}
                   as="select"
@@ -270,16 +270,16 @@ class Recommendations extends Component {
 
     return (
       <Form.Group controlId="seedTracks">
-        <Row className="w-100 m-0">
+        <Row className="w-100">
           <Col xs={12} className="text-left">
-            <h5 className="lead">Similar Tracks</h5>
+            <p className="paragraph-font fw-700">Similar Tracks</p>
           </Col>
 
           {[1, 2, 3].map((seedNumber) => {
             let { selectedTrackSeeds } = this.state;
 
             return (
-              <Col sm={12} md={4} className="p-1">
+              <Col sm={12} md={4}>
                 <Form.Control
                   key={seedNumber - 1}
                   as="select"
@@ -310,13 +310,13 @@ class Recommendations extends Component {
    */
   renderAudioFeatureSliders() {
     return (
-      <Row className="w-100 m-0">
+      <Row className="w-100">
         <Col xs={12} className="text-left">
-          <h5 className="lead">Target Statistics</h5>
+          <p className="paragraph-font fw-700">Target Statistics</p>
         </Col>
 
-        <Col xs={12} className="p-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2"> Danceability </p>
+        <Col xs={12} className="py-2 d-flex align-center space-between">
+          <p className="mb-0 mr-2 paragraph-font"> Danceability </p>
           <Slider
             min={0}
             max={100}
@@ -326,11 +326,11 @@ class Recommendations extends Component {
             onChange={(value) =>
               this.setState({ targetDanceability: value / 100 })
             }
-            className="w-50"
+            className="w-75"
           />
         </Col>
-        <Col xs={12} className="p-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2"> Energy </p>
+        <Col xs={12} className="py-2 d-flex align-center space-between">
+          <p className="mb-0 mr-2 paragraph-font"> Energy </p>
           <Slider
             min={0}
             max={100}
@@ -338,12 +338,12 @@ class Recommendations extends Component {
             defaultValue={50}
             value={this.state.targetEnergy * 100}
             onChange={(value) => this.setState({ targetEnergy: value / 100 })}
-            className="w-50"
+            className="w-75"
           />
         </Col>
 
-        <Col xs={12} className="p-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2"> Valence </p>
+        <Col xs={12} className="py-2 d-flex align-center space-between">
+          <p className="mb-0 mr-2 paragraph-font"> Valence </p>
           <Slider
             min={0}
             max={100}
@@ -351,12 +351,12 @@ class Recommendations extends Component {
             defaultValue={50}
             value={this.state.targetValence * 100}
             onChange={(value) => this.setState({ targetValence: value / 100 })}
-            className="w-50"
+            className="w-75"
           />
         </Col>
 
-        <Col xs={12} className="p-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2"> Tempo </p>
+        <Col xs={12} className="py-2 d-flex align-center space-between">
+          <p className="mb-0 mr-2 paragraph-font"> Tempo </p>
           <Slider
             min={0}
             max={250}
@@ -364,20 +364,21 @@ class Recommendations extends Component {
             defaultValue={100}
             value={this.state.targetBPM}
             onChange={(value) => this.setState({ targetBPM: value })}
-            className="w-50"
+            className="w-75"
           />
         </Col>
 
-        <Col xs={12} className="p-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2"> Popularity </p>
+        <Col xs={12} className="py-2 d-flex align-center space-between">
+          <p className="mb-0 mr-2 paragraph-font"> Popularity </p>
           <Slider
+            
             min={0}
             max={100}
             step={1}
             defaultValue={100}
             value={this.state.targetPopularity}
             onChange={(value) => this.setState({ targetPopularity: value })}
-            className="w-50"
+            className="w-75"
           />
         </Col>
       </Row>
@@ -388,9 +389,9 @@ class Recommendations extends Component {
     let { error } = this.state;
 
     return (
-      <div className="text-right">
-        <div className="w-100 text-center">
-          <h4> Generate Recommendations </h4>
+      <div>
+        <div className="w-100 text-left">
+          <h3 className="sub-header-font"> Generate Recommendations </h3>
           <br />
         </div>
         <Form onSubmit={(data) => console.log(data)}>
@@ -398,12 +399,15 @@ class Recommendations extends Component {
           {this.renderSeedArtistsDropdown()}
           {this.renderAudioFeatureSliders()}
         </Form>
-        <Button
-          className="pn-primary-button"
-          onClick={this.handleRecommendationGeneration}
-        >
-          GENERATE TRACKS
-        </Button>
+        <div className="w-100 text-right">
+          <Button
+            className="pn-primary-button pn-button button-font text-right"
+            onClick={this.handleRecommendationGeneration}
+          >
+            GENERATE TRACKS
+          </Button>
+        </div>
+       
         <hr />
         {error && (
           <div className="text-center mt-3">

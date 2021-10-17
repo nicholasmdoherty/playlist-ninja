@@ -18,23 +18,11 @@ class ProfileInfo extends Component {
 
       return (
         <Row>
-          <Col xs={12} md={6} className="text-right text-center-md">
-            <Image
-              src={images[0] ? images[0].url : ""}
-              className="drop-shadow profile-image"
-            />
-          </Col>
-          <Col xs={12} md={6} className="break-long-words text-center-md">
-            <Spacer percentage={5} />
-            <h1 className="">
-              <span style={{ fontWeight: 200, fontSize: ".8em" }}>
-                Welcome,
-              </span>
-              &nbsp;
-              <span className="arts-and-crafts-font">{displayName}</span>
-            </h1>
-            <h5 className="lead">{email}</h5>
-            <h2 className="lead mb-0">{followers.total} followers</h2>
+          <Col xs={12} md={12} className="break-long-words text-center-md">
+            <h1 className="large-header-font m-0">Welcome, </h1>
+            <h1 className="large-header-font">{displayName}</h1>
+            <p className="paragraph-font m-0">{email}</p>
+            <p className="paragraph-font mb-4">{followers.total} followers</p>
             <SpotifyLogoutButton />
           </Col>
         </Row>

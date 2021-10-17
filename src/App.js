@@ -13,6 +13,9 @@ import { Container, Row } from "react-bootstrap";
 import autoBind from "react-autobind";
 import MutualMelodiesPreferenceQuiz from "./modules/mutual-melodies-preference-quiz/MutualMelodiesPreferenceQuiz";
 
+import './common/typography.css'
+import './common/utilities.css'
+
 class App extends React.Component {
   constructor(props) {
     super(props);

@@ -71,26 +71,25 @@ class TopTracks extends Component {
   render() {
     return (
       <Row className="p-3">
-        <Col xs={12} className="text-center">
-          <h3 className="display-5"> Top Tracks </h3>
-          <Spacer percentage={4} />
+        <Col xs={12} >
+          <h3 className="sub-header-font"> Top Tracks </h3>
         </Col>
 
-        <Col xs={12} className="text-center justify-content-center">
-          <Tabs defaultActiveKey="shortTerm" id="nav-tabs">
+        <Col xs={12} className="mt-3">
+          <Tabs defaultActiveKey="shortTerm" id="nav-tabs" className="tab-font">
             <Tab eventKey="shortTerm" title="Short Term">
               <Row className="pt-4">
                 {this.state.topShortTermTracks &&
                   this.state.topShortTermTracks.items.map(topTrack => {
                     return (
-                      <Col xs={6} sm={4} lg={2} className="text-center">
+                      <Col xs={6} md={4} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topTrack.album.images[0].url}
                             fluid
                             className="drop-shadow mb-3"
                           />
-                          <p className="lead">{topTrack.name}</p>
+                          <p className="paragraph-font">{topTrack.name}</p>
                         </div>
                       </Col>
                     );
@@ -102,14 +101,14 @@ class TopTracks extends Component {
                 {this.state.topMediumTermTracks &&
                   this.state.topMediumTermTracks.items.map(topTrack => {
                     return (
-                      <Col xs={6} sm={4} lg={2} className="text-center">
+                      <Col xs={6} md={4} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topTrack.album.images[0].url}
                             fluid
                             className="drop-shadow mb-3"
                           />
-                          <p className="lead">{topTrack.name}</p>
+                          <p className="paragraph-font">{topTrack.name}</p>
                         </div>
                       </Col>
                     );
@@ -121,14 +120,14 @@ class TopTracks extends Component {
                 {this.state.topLongTermTracks &&
                   this.state.topLongTermTracks.items.map(topTrack => {
                     return (
-                      <Col xs={6} sm={4} lg={2} className="text-center">
+                      <Col xs={6} md={4} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topTrack.album.images[0].url}
                             fluid
                             className="drop-shadow mb-3"
                           />
-                          <p className="lead">{topTrack.name}</p>
+                          <p className="paragraph-font">{topTrack.name}</p>
                         </div>
                       </Col>
                     );

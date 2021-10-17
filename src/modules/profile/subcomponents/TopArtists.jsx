@@ -79,28 +79,27 @@ class TopArtists extends Component {
 
   render() {
     return (
-      <Row className="p-3">
-        <Col xs={12} className="text-center">
-          <h3 className="display-5"> Top Artists </h3>
-          <Spacer percentage={4} />
+      <Row className="my-5">
+        <Col xs={12}>
+          <h3 className="sub-header-font"> Top Artists </h3>
         </Col>
 
-        <Col xs={12} className="text-center justify-content-center">
-          <Tabs defaultActiveKey="shortTerm" id="nav-tabs">
+        <Col xs={12} className="mt-3">
+          <Tabs defaultActiveKey="shortTerm" id="nav-tabs" className="tab-font">
             <Tab eventKey="shortTerm" title="Short Term">
               <Row className="pt-4">
                 {this.state.topShortTermArtists &&
                   this.state.topShortTermArtists.items.map((topArtist) => {
                     return (
-                      <Col xs={6} lg={2} className="text-center">
+                      <Col xs={6} lg={4} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topArtist.images[0].url}
                             roundedCircle
                             fluid
-                            className="drop-shadow mb-3 object-fit-cover"
+                            className="drop-shadow mb-3"
                           />
-                          <p className="lead">{topArtist.name}</p>
+                          <p className="paragraph-font">{topArtist.name}</p>
                         </div>
                       </Col>
                     );
@@ -112,15 +111,15 @@ class TopArtists extends Component {
                 {this.state.topMediumTermArtists &&
                   this.state.topMediumTermArtists.items.map((topArtist) => {
                     return (
-                      <Col xs={6} lg={2} className="text-center">
+                      <Col xs={6} md={4} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topArtist.images[0].url}
                             roundedCircle
                             fluid
-                            className="drop-shadow mb-3 object-fit-cover"
+                            className="drop-shadow mb-3"
                           />
-                          <p className="lead">{topArtist.name}</p>
+                          <p className="paragraph-font">{topArtist.name}</p>
                         </div>
                       </Col>
                     );
@@ -132,15 +131,15 @@ class TopArtists extends Component {
                 {this.state.topLongTermArtists &&
                   this.state.topLongTermArtists.items.map((topArtist) => {
                     return (
-                      <Col xs={6} lg={2} className="text-center">
+                      <Col xs={6} md={4} className="text-center">
                         <div className="p-2 break-long-words">
                           <Image
                             src={topArtist.images[0].url}
                             roundedCircle
                             fluid
-                            className="drop-shadow mb-3 object-fit-cover"
+                            className="drop-shadow mb-3"
                           />
-                          <p className="lead">{topArtist.name}</p>
+                          <p className="paragraph-font">{topArtist.name}</p>
                         </div>
                       </Col>
                     );

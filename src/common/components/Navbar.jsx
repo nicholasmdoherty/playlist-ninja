@@ -29,17 +29,10 @@ export default class Navbar extends Component {
           )}
 
           <div className="main-nav-button">
-            <i
-              className={`fa fa-user-ninja p-2 ${
-                isBelowSmallBreakpoint()
-                  ? "main-nav-icon-phone"
-                  : "main-nav-icon-desktop"
-              }`}
-            />
             {isBelowSmallBreakpoint() ? (
-              <h6 className="m-0 arts-and-crafts-font">PLAYLIST NINJA</h6>
+              <h6 className="m-0 mt-1 nav-title">PLAYLIST NINJA</h6>
             ) : (
-              <h4 className="m-0 arts-and-crafts-font">PLAYLIST NINJA</h4>
+              <h4 className="m-0 mt-1 nav-title">PLAYLIST NINJA</h4>
             )}
           </div>
 

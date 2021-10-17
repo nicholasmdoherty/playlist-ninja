@@ -1,0 +1,85 @@
+h1.large-header-font {
+  font-family: roc-grotesk, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 64pt;
+  line-height: 1em;
+}
+
+h3.sub-header-font {
+  font-family: roc-grotesk, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 48pt;
+  line-height: 1em;
+}
+
+p.paragraph-font {
+  font-family: tablet-gothic, sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 18pt;
+  line-height: 1.15em;
+}
+
+.button-font {
+  font-family: tablet-gothic, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16pt;
+  line-height: 1em;
+}
+
+.tab-font {
+  font-family: tablet-gothic, sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 16pt;
+}
+
+.track-table-title-font {
+  font-family: tablet-gothic, sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 16pt;
+  margin-bottom: 0;
+  line-height: 1em;
+}
+
+.track-table-font {
+  font-family: tablet-gothic, sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 12pt;
+}
+
+.nav-title {
+  font-family: roc-grotesk, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 20pt;
+  letter-spacing: 1pt;
+}
+
+@media (max-width: 768px) {
+  h1.large-header-font {
+    font-size: 36pt;
+  }
+
+  p.paragraph-font {
+    font-size: 14pt;
+    hyphens: auto;
+  }
+}
+
+.fw-700 {
+  font-weight: 700 !important;
+}
+
+.fw-400 {
+  font-weight: 400 !important;
+}
+
+.fw-100 {
+  font-weight: 100 !important;
+}

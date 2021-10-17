@@ -41,8 +41,8 @@ class PlaylistTracklist extends Component {
 
     return (
       <div>
-        <div className="text-center">
-          <h4> Track List </h4>
+        <div>
+          <h3 className="sub-header-font"> Track List </h3>
           <br />
         </div>
         <TrackTable

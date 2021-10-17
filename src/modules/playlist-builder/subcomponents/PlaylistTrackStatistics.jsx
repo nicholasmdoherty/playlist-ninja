@@ -134,9 +134,7 @@ class PlaylistTrackStatistics extends Component {
         <Row className="p-2 justify-content-center">
           <Col xs={4} sm={4} className="p-2 mb-2 text-center">
             <p
-              className={`mb-1 ${
-                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
-              }`}
+              className="paragraph-font"
             >
               Energy:
             </p>
@@ -144,9 +142,7 @@ class PlaylistTrackStatistics extends Component {
           </Col>
           <Col xs={4} sm={4} className="p-2 mb-2 text-center">
             <p
-              className={`mb-1 ${
-                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
-              }`}
+              className="paragraph-font"
             >
               Danceability:
             </p>
@@ -154,9 +150,7 @@ class PlaylistTrackStatistics extends Component {
           </Col>
           <Col xs={4} sm={4} className="p-2 mb-2 text-center">
             <p
-              className={`mb-1 ${
-                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
-              }`}
+              className="paragraph-font"
             >
               Valence:
             </p>
@@ -166,9 +160,7 @@ class PlaylistTrackStatistics extends Component {
         <Row className="p-2 justify-content-center">
           <Col xs={4} sm={4} className="p-2 mb-2 text-center">
             <p
-              className={`mb-1 ${
-                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
-              }`}
+              className="paragraph-font"
             >
               Tempo: <br />
               {Math.round(tempo)}BPM
@@ -176,9 +168,7 @@ class PlaylistTrackStatistics extends Component {
           </Col>
           <Col xs={4} sm={4} className="p-2 mb-2 text-center">
             <p
-              className={`mb-1 ${
-                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
-              }`}
+              className="paragraph-font"
             >
               Duration: <br />
               {duration.hours > 0 ? duration.hours + "hrs" : ""}{" "}
@@ -187,9 +177,7 @@ class PlaylistTrackStatistics extends Component {
           </Col>
           <Col xs={4} sm={4} className="p-2 mb-2 text-center">
             <p
-              className={`mb-1 ${
-                isBelowSmallBreakpoint() ? "mobile-small-font" : ""
-              }`}
+              className="paragraph-font"
             >
               Popularity: <br />
               {Math.round(popularity)}

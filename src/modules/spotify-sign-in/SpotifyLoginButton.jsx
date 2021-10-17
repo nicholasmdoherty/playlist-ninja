@@ -29,7 +29,7 @@ class SpotifyLoginButton extends Component {
         onSuccess={this.handleAccessToken}
         onFailure={(error) => console.log(error)}
         scope={spotifyScopes}
-        className="btn btn-md btn-primary pn-primary-button"
+        className="btn btn-md btn-primary pn-primary-button pn-button button-font"
       />
     );
   }

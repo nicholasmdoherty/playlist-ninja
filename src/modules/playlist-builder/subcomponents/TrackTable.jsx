@@ -112,13 +112,11 @@ class TrackTable extends Component {
 
   render() {
     return (
-      <Table responsive striped hover size="sm" className="text-left">
-        <thead></thead>
-        <tbody>
+        <div>
           {this.props.tracks.map((track) => {
             return (
-              <tr>
-                <td className="maxw-50-view">
+              <div className="d-flex w-100 space-between align-center">
+                <div className="maxw-50-view">
                   <div className="d-flex align-center">
                     {track.album.images[0] && (
                       <Image
@@ -126,9 +124,9 @@ class TrackTable extends Component {
                         className="track-table-image m-1"
                       />
                     )}
-                    <div className="break-long-words">
-                      <p className="track-table-title">{track.name}</p>
-                      <p className="track-table-font ">
+                    <div className="break-long-words pl-2 mt-1">
+                      <p className="track-table-title-font mb-0">{track.name}</p>
+                      <p className="track-table-font mb-0">
                         {track.artists.map((artist, index) => {
                           return index === track.artists.length - 1
                             ? artist.name
@@ -137,37 +135,35 @@ class TrackTable extends Component {
                       </p>
                     </div>
                   </div>
-                </td>
-                <td className="h-100 break-long-words d-flex justify-end p-1 align-center">
+                </div>
+                <div className="h-100 break-long-words d-flex justify-end p-1 align-center">
                   {this.props.tracksInPlaylist ? (
                     <Button
                       onClick={this.handleRemoveTrackFromPlaylist(track.id)}
-                      className="mr-1 mt-1 mb-1 pn-danger-button"
+                      className="mr-1 mt-1 mb-1 pn-danger-button pn-button button-font"
                       variant="danger"
                     >
-                      -
+                      <i className="fa fa-trash"></i>
                     </Button>
                   ) : (
                     <Button
                       onClick={this.handleAddTrackToPlaylist(track.id)}
-                      className="mr-1 mt-1 mb-1 pn-primary-button"
+                      className="mr-1 mt-1 mb-1 pn-primary-button pn-button button-font"
                     >
-                      +
+                    <i className="fa fa-plus"></i>
                     </Button>
                   )}
                   <Button
-                    className="ml-1 mt-1 mb-1 pn-primary-button"
+                    className="ml-1 mt-1 mb-1 pn-primary-button pn-button button-font"
                     onClick={this.handlePlayTrackOnSpotify(track.id)}
                   >
-                    {" "}
-                    PLAY{" "}
+                    <i className="fa fa-play"></i>
                   </Button>
-                </td>
-              </tr>
+                </div>
+              </div>
             );
           })}
-        </tbody>
-      </Table>
+        </div>
     );
   }
 }

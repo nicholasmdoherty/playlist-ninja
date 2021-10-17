@@ -38,9 +38,9 @@ class PersonalPlaylists extends Component {
 
       return (
         <div>
-          <Row className="text-center m-3 pb-2">
+          <Row className="m-3 pb-2">
             <Col xs={12}>
-              <h3 className="display-5"> My Playlists </h3>
+              <h3 className="sub-header-font"> My Playlists </h3>
               <Spacer percentage={3} />
             </Col>
           </Row>

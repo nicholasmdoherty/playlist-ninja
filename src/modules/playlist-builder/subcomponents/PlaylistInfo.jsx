@@ -31,23 +31,18 @@ export default class PlaylistInfo extends Component {
             ) : null}
           </Col>
           <Col
-            className="playlist-title-desc-wrapper text-right break-long-words p-3"
+            className="playlist-title-desc-wrapper break-long-words p-3"
             xs={12}
             sm={6}
           >
-            <h2 className={!isBelowSmallBreakpoint() ? "display-4" : ""}>
+            <h1 className="large-header-font">
               {playlist.name}
-            </h2>
-            <p>{playlist.description || "No description provided."}</p>
-            <p>
+            </h1>
+            <p className="paragraph-font mb-0">{playlist.description || "No description provided."}</p>
+            <p className="paragraph-font">
               {playlist.followers.total}{" "}
               {playlist.followers.total == 1 ? "follower" : "followers"}
             </p>
-            {/*            
-              <Button onClick={this.generateHypeCurvePlaylist.bind(this)}>
-                Generate Hype Curve Playlist
-              </Button>
-            */}
           </Col>
         </Row>
       </div>

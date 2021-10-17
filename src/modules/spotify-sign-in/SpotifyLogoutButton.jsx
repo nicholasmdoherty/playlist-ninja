@@ -19,10 +19,9 @@ class SpotifyLogoutButton extends Component {
   render() {
     return (
       <Button
-        variant="link"
-        className="pn-danger-button mt-3 px-2"
+        variant="primary"
+        className="pn-danger-button button-font pn-button button-font"
         onClick={this.handleLogout}
-        style={{ color: "red", width: "fit-content" }}
       >
         LOG OUT
       </Button>

@@ -17,11 +17,10 @@ class PlaylistBuilder extends Component {
       return (
         <div id="playlist-builder-wrapper" className="p-4">
           <Col xs={12}>
-            <Spacer percentage={3} />
+            <Spacer percentage={5} />
             <div className="w-100 h-100 no-selected-playlist">
-              <h1 className="display-4"> No playlist selected... </h1>
-              <br />
-              <p className="lead">
+              <h1 className="large-header-font"> No playlist selected... </h1>
+              <p className="paragraph-font mt-4">
                 Please{" "}
                 <a href="#/profile">select a playlist from your profile</a> to
                 begin editing.
@@ -35,15 +34,14 @@ class PlaylistBuilder extends Component {
     return (
       <div id="playlist-builder-wrapper" className="p-4">
         <PlaylistInfo playlist={selectedPlaylist} api={api} />
+        <Spacer percentage={5} />
         <PlaylistTrackStatistics tracks={selectedPlaylist.tracks} api={api} />
-        <br />
+        <Spacer percentage={5} />
         <PlaylistTracklist
           tracks={selectedPlaylist.tracks}
           playlistId={selectedPlaylist.id}
         />
-        <br />
-        <hr />
-        <br />
+        <Spacer percentage={5} />
         <Recommendations
           playlistTracks={selectedPlaylist.tracks}
           playlistId={selectedPlaylist.id}

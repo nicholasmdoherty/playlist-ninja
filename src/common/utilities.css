@@ -1,0 +1,40 @@
+.pn-button {
+  border: 3px solid #181818 !important;
+  padding: 10px 15px;
+}
+
+.pn-button:hover,
+.pn-button:active {
+  padding: 10px 25px;
+  transition: 0.1s padding linear;
+}
+
+.pn-primary-button {
+  background-color: #181818;
+  border-radius: 5px;
+  color: white;
+}
+
+.pn-primary-button:hover,
+.pn-primary-button:active {
+  background-color: #202020 !important;
+  color: #1ed75f !important;
+  border: 3px solid #1ed75f !important;
+}
+
+.pn-danger-button {
+  background-color: #181818;
+  border-radius: 5px;
+  color: white;
+}
+
+.pn-danger-button:hover,
+.pn-danger-button:active {
+  color: #f08080 !important;
+  border: 3px solid #f08080 !important;
+  background-color: #181818;
+}
+
+.progress-bar {
+  background-color: #1ed75f !important;
+}

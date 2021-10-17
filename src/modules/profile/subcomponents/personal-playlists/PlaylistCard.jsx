@@ -74,11 +74,10 @@ class PlaylistCard extends Component {
     return (
       <Col
         xs={12}
-        sm={6}
-        xl={4}
+        md={6}
         className={isBelowSmallBreakpoint() ? "p-4" : "p-3"}
       >
-        <div className="playlist-card-content text-center d-flex playlist-card content-card flex-column pt-4">
+        <div className="playlist-card-content d-flex playlist-card">
           {playlist.images[0] ? (
             <Image
               src={playlist.images[0].url}
@@ -87,22 +86,20 @@ class PlaylistCard extends Component {
           ) : (
             <div className={isBelowSmallBreakpoint() ? "w-25" : ""} />
           )}
-          <div className="text-left">
-            <h5 className="m-1 ml-2">{playlist.name}</h5>
-            <p className="ml-2 m-0">{playlist.public ? "Public" : "Private"}</p>
-          </div>
+          <div className="text-left pl-4">
+            <p className="mb-0 paragraph-font fw-700">{playlist.name}</p>
+            <p className="m-0 mb-3 paragraph-font">{playlist.public ? "Public" : "Private"}</p>
 
-          <div className="mobile-playlist-card-button-wrapper">
             <Button
               variant="primary"
-              className="pn-primary-button"
+              className="pn-primary-button pn-button button-font mr-1"
               onClick={this.selectPlaylist}
             >
               <i className="fa fa-pencil"></i>
             </Button>
             <Button
               variant="outline-danger"
-              className="pn-danger-button"
+              className="pn-danger-button pn-button button-font"
               onClick={this.unfollowPlaylist}
             >
               <i className="fa fa-trash"></i>

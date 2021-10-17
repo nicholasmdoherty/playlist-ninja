@@ -3,7 +3,7 @@
 }
 
 .playlist-card-content {
-  padding: 0.5rem;
+  padding: 20px;
   height: 100%;
   align-items: center;
 }
@@ -11,8 +11,6 @@
 .mobile-playlist-card-image {
   width: 50%;
   height: auto;
-  border: 2px solid black;
-  padding: 4px;
 }
 
 .desktop-playlist-card-image {
@@ -56,15 +54,4 @@
 
 .playlist-row-height {
   height: 5rem;
-}
-
-.track-table-title {
-  font-size: calc(0.85rem + 0.25vmax);
-  font-weight: 500;
-  margin-bottom: 0;
-}
-
-.track-table-font {
-  font-size: 0.7rem;
-  margin-bottom: 0;
 }

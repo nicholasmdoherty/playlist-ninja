@@ -5,7 +5,7 @@
   width: 100%;
   border-radius: 6px;
   -ms-touch-action: none;
-      touch-action: none;
+  touch-action: none;
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -25,7 +25,7 @@
   left: 0;
   height: 4px;
   border-radius: 6px;
-  background-color: #abe2fb;
+  background-color: #1ed75f;
 }
 .rc-slider-handle {
   position: absolute;
@@ -36,10 +36,10 @@
   margin-top: -5px;
   cursor: grab;
   border-radius: 50%;
-  border: solid 2px #96dbfa;
+  border: solid 2px #1ed75f;
   background-color: #fff;
   -ms-touch-action: pan-x;
-      touch-action: pan-x;
+  touch-action: pan-x;
 }
 .rc-slider-handle:focus {
   border-color: #57c5f7;
@@ -136,7 +136,7 @@
 .rc-slider-vertical .rc-slider-handle {
   margin-left: -5px;
   -ms-touch-action: pan-y;
-      touch-action: pan-y;
+  touch-action: pan-y;
 }
 .rc-slider-vertical .rc-slider-mark {
   top: 0;
@@ -159,13 +159,13 @@
 }
 .rc-slider-tooltip-zoom-down-enter,
 .rc-slider-tooltip-zoom-down-appear {
-  animation-duration: .3s;
+  animation-duration: 0.3s;
   animation-fill-mode: both;
   display: block !important;
   animation-play-state: paused;
 }
 .rc-slider-tooltip-zoom-down-leave {
-  animation-duration: .3s;
+  animation-duration: 0.3s;
   animation-fill-mode: both;
   display: block !important;
   animation-play-state: paused;

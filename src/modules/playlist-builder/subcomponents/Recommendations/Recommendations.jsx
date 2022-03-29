@@ -274,7 +274,7 @@ class Recommendations extends Component {
 
     return (
       <div className="input-container">
-        <span className="input-label">Similar Artists (up to 3)</span>
+        <span className="input-label">Similar Tracks (up to 3)</span>
         <div className="dropdowns-container">
           {[1, 2, 3].map((seedNumber) => {
             let { selectedTrackSeeds } = this.state;

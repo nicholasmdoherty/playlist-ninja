@@ -20,8 +20,8 @@ const LoginPage = () => {
         <SpotifyLoginButton />
       </div>
       <div id="links-container">
-        <span>Twitter</span>
-        <span>Discord</span>
+        {/*<span>Twitter</span>
+          <span>Discord</span>*/}
       </div>
     </div>
   );

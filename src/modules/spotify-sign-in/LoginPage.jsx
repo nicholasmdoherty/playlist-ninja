@@ -1,32 +1,30 @@
-import React, { Component } from "react";
-import SpotifyLoginButton from "./SpotifyLoginButton";
-import Spacer from "../../common/components/Spacer";
-import "./sign-in.css";
-import { Col, Row } from "react-bootstrap";
+import React from "react";
 
-class LoginPage extends Component {
-  render() {
-    return (
-      <div id="logged-out-wrapper" className="my-5 flex-content-center">
-        <div>
-          <h1 className="large-header-font mobile-title-font mb-4">
-            Completely control the composition of your playlists.
-          </h1>
-          <p className="paragraph-font">
-            PlaylistNinja gives you the power to fine tune the powerful
-            recommendation engine in the Spotify API.
-          </p>
-          <p className="paragraph-font mb-4">
-            We give you an interface that exposes the properties used in the
-            recommendation engine, allowing you to configure recommendations and
-            discover new music by selecting seeds and target properties when
-            searching for songs.
-          </p>
-          <SpotifyLoginButton />
-        </div>
+import SpotifyLoginButton from "./SpotifyLoginButton";
+
+import "./sign-in.css";
+
+const LoginPage = () => {
+
+  return (
+    <div id="logged-out-wrapper">
+      <img id="ninja-image" src="/assets/playlistninja-login.png" />
+      <span className="pn-logo-text">playlistninja.app</span>
+      <div id='login-page-text'>
+        <h1 id="sign-in-header">
+          More control over Spotify recommendations.
+        </h1>
+        <p id='sign-in-subtext'>
+        Finding new music for your playlists just got a lot easier, with more customization over the recommendation algorithm on Spotify.
+        </p>
+        <SpotifyLoginButton />
       </div>
-    );
-  }
+      <div id="links-container">
+        <span>Twitter</span>
+        <span>Discord</span>
+      </div>
+    </div>
+  );
 }
 
 export default LoginPage;

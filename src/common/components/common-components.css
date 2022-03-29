@@ -2,40 +2,6 @@
   NAVBAR STYLING
 */
 
-.main-app-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 100vw;
-  min-height: 50px;
-  background-color: #1ed75f;
-  color: white;
-  box-shadow: 2px 2px 5px 2px #1ed75f50;
-  position: fixed;
-  z-index: 1000;
-}
-
-.main-app-nav-ghost {
-  width: 100vw;
-  min-height: 50px;
-}
-
-.main-nav-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.main-nav-icon-desktop {
-  font-size: 2em;
-  color: white;
-}
-
-.main-nav-icon-phone {
-  font-size: 1.4em;
-  color: white;
-}
-
 @media (max-width: 768px) {
   .text-center-md {
     text-align: center !important;
@@ -44,4 +10,10 @@
   .mobile-title-font {
     font-size: 9vw;
   }
+}
+
+.card-style {
+  background: #353535;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
 }

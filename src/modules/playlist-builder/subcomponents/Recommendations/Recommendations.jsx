@@ -1,16 +1,20 @@
 import React, { Component } from "react";
-import TrackTable from "./TrackTable";
+import TrackTable from "../Tracklist/TrackTable";
 import { connect } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import autoBind from "react-autobind";
 import Slider from "rc-slider";
-import { setSelectedPlaylist } from "../../../redux/actions/playlistActions";
+import { setSelectedPlaylist } from "../../../../redux/actions/playlistActions";
+import FeatherIcon from 'feather-icons-react'
+
+import './Recommendations.css'
 
 class Recommendations extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      activeView: "input",
       recommendedTracks: [],
       selectedArtistSeeds: {
         0: "",
@@ -117,7 +121,7 @@ class Recommendations extends Component {
     });
 
     let query = {
-      limit: 35,
+      limit: 15,
       target_bpm: targetBPM,
       target_valence: targetValence,
       target_energy: targetEnergy,
@@ -129,10 +133,10 @@ class Recommendations extends Component {
 
     api.getRecommendations(query).then(
       (data) => {
-        this.setState({ recommendedTracks: data.body.tracks, error: null });
+        this.setState({ recommendedTracks: data.body.tracks, error: null, activeView: 'songs' });
       },
       (error) => {
-        this.setState({ error: error.message });
+        this.setState({ error: error.message, activeView: 'songs' });
       }
     );
   }
@@ -198,18 +202,16 @@ class Recommendations extends Component {
     let artistIdArray = Object.keys(artists);
 
     return (
-      <Form.Group controlId="seedArtists">
-        <Row className="w-100">
-          <Col xs={12} className="text-left">
-            <p className="paragraph-font fw-700">Similar Artists</p>
-          </Col>
+      <div className="input-container">
+        <span className="input-label">Similar Artists (up to 3)</span>
 
+        <div className='dropdowns-container'>
           {[1, 2, 3].map((seedNumber) => {
             let { selectedArtistSeeds } = this.state;
 
             return (
-              <Col sm={12} md={4}>
-                <Form.Control
+              <div className="dropdown-container">
+                <select
                   key={seedNumber - 1}
                   as="select"
                   onChange={this.handleAddSeedArtist(seedNumber - 1)}
@@ -217,6 +219,7 @@ class Recommendations extends Component {
                     selectedArtistSeeds[seedNumber - 1] === "" &&
                     this.numberOfSeedsFull()
                   }
+                  className="similar-dropdown"
                 >
                   <option value="">None</option>
                   {artistIdArray.map((artistId) => {
@@ -224,12 +227,13 @@ class Recommendations extends Component {
                       <option value={artistId}>{artists[artistId]}</option>
                     );
                   })}
-                </Form.Control>
-              </Col>
+                </select>
+                <FeatherIcon className='dropdown-arrow' icon="chevron-down" width={16} height={16} />
+              </div>
             );
           })}
-        </Row>
-      </Form.Group>
+        </div>
+      </div>
     );
   }
 
@@ -269,18 +273,15 @@ class Recommendations extends Component {
     let trackIdArray = Object.keys(tracks);
 
     return (
-      <Form.Group controlId="seedTracks">
-        <Row className="w-100">
-          <Col xs={12} className="text-left">
-            <p className="paragraph-font fw-700">Similar Tracks</p>
-          </Col>
-
+      <div className="input-container">
+        <span className="input-label">Similar Artists (up to 3)</span>
+        <div className="dropdowns-container">
           {[1, 2, 3].map((seedNumber) => {
             let { selectedTrackSeeds } = this.state;
 
             return (
-              <Col sm={12} md={4}>
-                <Form.Control
+              <div className="dropdown-container">
+                <select
                   key={seedNumber - 1}
                   as="select"
                   onChange={this.handleAddSeedTrack(seedNumber - 1)}
@@ -288,17 +289,21 @@ class Recommendations extends Component {
                     selectedTrackSeeds[seedNumber - 1] === "" &&
                     this.numberOfSeedsFull()
                   }
+                  className="similar-dropdown"
                 >
                   <option value="">None</option>
                   {trackIdArray.map((trackId) => {
-                    return <option value={trackId}>{tracks[trackId]}</option>;
+                    return (
+                      <option value={trackId}>{tracks[trackId]}</option>
+                    );
                   })}
-                </Form.Control>
-              </Col>
+                </select>
+                <FeatherIcon className='dropdown-arrow' icon="chevron-down" width={16} height={16} />
+              </div>
             );
           })}
-        </Row>
-      </Form.Group>
+        </div>
+     </div>
     );
   }
 
@@ -310,13 +315,9 @@ class Recommendations extends Component {
    */
   renderAudioFeatureSliders() {
     return (
-      <Row className="w-100">
-        <Col xs={12} className="text-left">
-          <p className="paragraph-font fw-700">Target Statistics</p>
-        </Col>
-
-        <Col xs={12} className="py-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2 paragraph-font"> Danceability </p>
+      <div className="audio-feature-input">
+        <div className='input-container'>
+          <span className="input-label">Target Danceability</span>
           <Slider
             min={0}
             max={100}
@@ -326,11 +327,11 @@ class Recommendations extends Component {
             onChange={(value) =>
               this.setState({ targetDanceability: value / 100 })
             }
-            className="w-75"
+            className="audio-slider"
           />
-        </Col>
-        <Col xs={12} className="py-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2 paragraph-font"> Energy </p>
+        </div>
+        <div className='input-container'>
+          <span className="input-label">Target Energy</span>
           <Slider
             min={0}
             max={100}
@@ -338,12 +339,12 @@ class Recommendations extends Component {
             defaultValue={50}
             value={this.state.targetEnergy * 100}
             onChange={(value) => this.setState({ targetEnergy: value / 100 })}
-            className="w-75"
+            className="audio-slider"
           />
-        </Col>
+        </div>
 
-        <Col xs={12} className="py-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2 paragraph-font"> Valence </p>
+        <div className='input-container'>
+          <span className="input-label">Target Valence</span>
           <Slider
             min={0}
             max={100}
@@ -351,12 +352,12 @@ class Recommendations extends Component {
             defaultValue={50}
             value={this.state.targetValence * 100}
             onChange={(value) => this.setState({ targetValence: value / 100 })}
-            className="w-75"
+            className="audio-slider"
           />
-        </Col>
+        </div>
 
-        <Col xs={12} className="py-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2 paragraph-font"> Tempo </p>
+        <div className='input-container'>
+          <span className="input-label">Target Tempo</span>
           <Slider
             min={0}
             max={250}
@@ -364,24 +365,23 @@ class Recommendations extends Component {
             defaultValue={100}
             value={this.state.targetBPM}
             onChange={(value) => this.setState({ targetBPM: value })}
-            className="w-75"
+            className="audio-slider"
           />
-        </Col>
+        </div>
 
-        <Col xs={12} className="py-2 d-flex align-center space-between">
-          <p className="mb-0 mr-2 paragraph-font"> Popularity </p>
+        <div className='input-container'>
+          <span className="input-label">Target Popularity</span>
           <Slider
-            
             min={0}
             max={100}
             step={1}
             defaultValue={100}
             value={this.state.targetPopularity}
             onChange={(value) => this.setState({ targetPopularity: value })}
-            className="w-75"
+            className="audio-slider"
           />
-        </Col>
-      </Row>
+        </div>
+      </div>
     );
   }
 
@@ -389,40 +389,48 @@ class Recommendations extends Component {
     let { error } = this.state;
 
     return (
-      <div>
-        <div className="w-100 text-left">
-          <h3 className="sub-header-font"> Generate Recommendations </h3>
-          <br />
-        </div>
-        <Form onSubmit={(data) => console.log(data)}>
-          {this.renderSeedTracksDropdown()}
-          {this.renderSeedArtistsDropdown()}
-          {this.renderAudioFeatureSliders()}
-        </Form>
-        <div className="w-100 text-right">
-          <Button
-            className="pn-primary-button pn-button button-font text-right"
-            onClick={this.handleRecommendationGeneration}
+      <div className="recommendations-container">
+        <span className="recommendations-header">Generate Recommendations</span>
+        <div className="recommendations-tab-row">
+          <div 
+            className={`recommendations-tab ${this.state.activeView === 'input' ? 'active' : ''}`}
+            onClick={() => {this.setState({ activeView: 'input' })}}
           >
-            GENERATE TRACKS
-          </Button>
+            Recommendations Input
+          </div>
+          <div 
+            className={`recommendations-tab ${this.state.activeView === 'songs' ? 'active' : ''}`}
+            onClick={() => {this.setState({ activeView: 'songs' })}}
+          >
+            Recommended Songs
+          </div>
         </div>
-       
-        <hr />
-        {error && (
-          <div className="text-center mt-3">
-            <h5 className="p-3 lead text-danger">
-              <i className="fa fa-exclamation-triangle"></i> {error}
-            </h5>
+        {this.state.activeView === 'input' && (
+          <div className="recommendations-main-card card-style">
+            {this.renderSeedTracksDropdown()}
+            {this.renderSeedArtistsDropdown()}
+            {this.renderAudioFeatureSliders()}
+            <div className="recommendations-button" onClick={this.handleRecommendationGeneration}>
+              Generate Recommendations
+            </div>
           </div>
         )}
-        {!error && (
-          <div className="mt-3">
-            <TrackTable
-              playlistId={this.props.playlistId}
-              tracks={this.state.recommendedTracks}
-              updateCallback={this.updateSelectedPlaylist}
-            />
+        {this.state.activeView === 'songs' && (
+          <div className="card-style">
+            {error && (
+              <div className="text-center mt-2">
+                <h5 className="p-3 lead text-danger">
+                  <i className="fa fa-exclamation-triangle"></i> {error}
+                </h5>
+              </div>
+            )}
+            {!error && (
+                <TrackTable
+                  playlistId={this.props.playlistId}
+                  tracks={this.state.recommendedTracks}
+                  updateCallback={this.updateSelectedPlaylist}
+                />
+            )}
           </div>
         )}
       </div>

@@ -4,7 +4,7 @@ import LoginPage from "./modules/spotify-sign-in/LoginPage";
 import SpotifyLogoutButton from "./modules/spotify-sign-in/SpotifyLogoutButton";
 import { getCookie } from "./common/constants";
 import "./App.css";
-import Navbar from "./common/components/Navbar";
+import Navbar from "./common/components/Navbar/Navbar"
 import { connect } from "react-redux";
 import { setSpotifyApiAction } from "./redux/actions/apiActions";
 import Profile from "./modules/profile/Profile";
@@ -15,6 +15,7 @@ import MutualMelodiesPreferenceQuiz from "./modules/mutual-melodies-preference-q
 
 import './common/typography.css'
 import './common/utilities.css'
+import './common/components/common-components.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -62,26 +63,27 @@ class App extends React.Component {
     return (
       <HashRouter>
         <div className="" id="app-wrapper">
-          <Navbar noButtons={!loggedIn} />
+          
 
           {loggedIn ? (
-            <div id="playlists-view-wrapper">
-              <Container>
-                <Row>
-                  <Route exact path="(|/profile)" component={Profile} />
-                  <Route
-                    exact
-                    path="/playlist-builder"
-                    component={PlaylistBuilder}
-                  />
-                  <Route exact path="/music-preference-quiz" component={MutualMelodiesPreferenceQuiz} />
-                </Row>
-              </Container>
-            </div>
+            <React.Fragment>
+              <Navbar />
+              <div id="playlists-view-wrapper">
+                <Container>
+                  <Row>
+                    <Route exact path="(|/profile)" component={Profile} />
+                    <Route
+                      exact
+                      path="/playlist-builder"
+                      component={PlaylistBuilder}
+                    />
+                    <Route exact path="/music-preference-quiz" component={MutualMelodiesPreferenceQuiz} />
+                  </Row>
+                </Container>
+              </div>
+            </React.Fragment>
           ) : (
-            <Container>
-              <LoginPage />
-            </Container>
+            <LoginPage />
           )}
         </div>
       </HashRouter>

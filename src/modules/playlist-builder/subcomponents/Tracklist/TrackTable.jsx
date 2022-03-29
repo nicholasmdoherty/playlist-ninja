@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { Table, Button, Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import autoBind from "react-autobind";
-import { setSelectedPlaylist } from "../../../redux/actions/playlistActions";
-import "../playlist-builder.css";
+import { setSelectedPlaylist } from "../../../../redux/actions/playlistActions";
+import FeatherIcon from 'feather-icons-react';
+
+import './Tracklist.css'
 
 class TrackTable extends Component {
   constructor(props) {
@@ -110,60 +112,54 @@ class TrackTable extends Component {
     };
   }
 
+  renderTrackRow = (track, index) => {
+    return (
+      <div className={`track-row ${index % 2 === 1 ? 'odd' : ''}`}>
+        <div className="track-row-image-title">
+          {track.album.images[0] && (
+            <Image
+              width={60}
+              height={60}
+              src={track.album.images[0].url}
+              className="track-table-image"
+            />
+          )}
+          <span className="track-name">{track.name}</span>
+        </div>
+        <div className="track-row-actions">
+          <div
+            className="play-button"
+            onClick={this.handlePlayTrackOnSpotify(track.id)}
+          >
+            <FeatherIcon icon="play" width={16} height={16} />
+          </div>
+          {this.props.tracksInPlaylist ? (
+            <div
+              className="trash-button"
+              onClick={this.handleRemoveTrackFromPlaylist(track.id)}
+            >
+              <FeatherIcon icon="trash-2" width={16} height={16} />
+            </div>
+          ) : (
+            <div
+              className="plus-button"
+              onClick={this.handleAddTrackToPlaylist(track.id)}
+            >
+              <FeatherIcon icon="plus" width={16} height={16} />
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
-        <div>
-          {this.props.tracks.map((track) => {
-            return (
-              <div className="d-flex w-100 space-between align-center">
-                <div className="maxw-50-view">
-                  <div className="d-flex align-center">
-                    {track.album.images[0] && (
-                      <Image
-                        src={track.album.images[0].url}
-                        className="track-table-image m-1"
-                      />
-                    )}
-                    <div className="break-long-words pl-2 mt-1">
-                      <p className="track-table-title-font mb-0">{track.name}</p>
-                      <p className="track-table-font mb-0">
-                        {track.artists.map((artist, index) => {
-                          return index === track.artists.length - 1
-                            ? artist.name
-                            : artist.name + ", ";
-                        })}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="h-100 break-long-words d-flex justify-end p-1 align-center">
-                  {this.props.tracksInPlaylist ? (
-                    <Button
-                      onClick={this.handleRemoveTrackFromPlaylist(track.id)}
-                      className="mr-1 mt-1 mb-1 pn-danger-button pn-button button-font"
-                      variant="danger"
-                    >
-                      <i className="fa fa-trash"></i>
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={this.handleAddTrackToPlaylist(track.id)}
-                      className="mr-1 mt-1 mb-1 pn-primary-button pn-button button-font"
-                    >
-                    <i className="fa fa-plus"></i>
-                    </Button>
-                  )}
-                  <Button
-                    className="ml-1 mt-1 mb-1 pn-primary-button pn-button button-font"
-                    onClick={this.handlePlayTrackOnSpotify(track.id)}
-                  >
-                    <i className="fa fa-play"></i>
-                  </Button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      <div>
+        {this.props.tracks.map((track, index) => {
+          return this.renderTrackRow(track, index)
+        })}
+      </div>
     );
   }
 }

@@ -1,15 +1,22 @@
 .profile-wrapper {
   width: 100%;
-  margin-top: 7vh;
-}
-
-.profile-text-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 40px;
+  padding-bottom: 75px;
 }
 
-.profile-image {
-  max-width: 85%;
-  height: auto;
+.profile-header {
+  font-family: 'Roc Grotesk';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 92px;
+  letter-spacing: 0.04em;
+}
+
+.top-tracks-artists-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

@@ -5,6 +5,11 @@ export default (state = {}, action) => {
         ...state,
         spotifyApi: action.payload
       };
+    case "SET_USER_ID":
+      return {
+        ...state,
+        userId: action.payload
+      }
     default:
       return state;
   }

@@ -14,3 +14,10 @@ export const setSpotifyApiAction = accessToken => dispatch => {
     payload: spotifyApi
   });
 };
+
+export const setUserId = userId => dispatch => {
+  dispatch({
+    type: "SET_USER_ID",
+    payload: userId
+  });
+};

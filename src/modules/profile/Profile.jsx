@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./profile.css";
-import Spacer from "../../common/components/Spacer";
-import PersonalPlaylists from "./subcomponents/personal-playlists/PersonalPlaylists";
-import ProfileInfo from "./subcomponents/ProfileInfo";
-import TopArtists from "./subcomponents/TopArtists";
-import TopTracks from "./subcomponents/TopTracks";
+import MyPlaylists from "./subcomponents/personal-playlists/PersonalPlaylists";
+import TopArtists from "./subcomponents/TopArtists/TopArtists";
+import TopTracks from "./subcomponents/TopTracks/TopTracks";
 import { connect } from "react-redux";
 import { deepCamelCaseKeys } from "../../common/constants";
+import { Col, Row } from "react-bootstrap";
+import { setUserId } from "../../redux/actions/apiActions";
 
 class Profile extends Component {
   constructor(props) {
@@ -37,14 +37,16 @@ class Profile extends Component {
     if (profile) {
       return (
         <div className="profile-wrapper">
-          <ProfileInfo profile={profile} />
-          <Spacer percentage={5} />
-          <TopArtists />
-          <Spacer percentage={5} />
-          <TopTracks />
-          <Spacer percentage={5} />
-          <Spacer percentage={5} />
-          <PersonalPlaylists userId={profile.id} />
+          <span className='profile-header'>My Profile</span>
+          <Row>
+            <Col xs={7}>
+              <MyPlaylists title="My Playlists" userId={profile.id} />
+            </Col>
+            <Col xs={5} className="top-tracks-artists-col">
+              <TopArtists />
+              <TopTracks />
+            </Col>
+          </Row>
         </div>
       );
     } else {

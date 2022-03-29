@@ -23,13 +23,14 @@ class SpotifyLoginButton extends Component {
   render() {
     return (
       <SpotifyLogin
-        buttonText="LOG IN USING SPOTIFY"
+        buttonText="Log in with Spotify"
         clientId={clientID}
         redirectUri={redirectURI}
         onSuccess={this.handleAccessToken}
         onFailure={(error) => console.log(error)}
         scope={spotifyScopes}
-        className="btn btn-md btn-primary pn-primary-button pn-button button-font"
+        id="login-button"
+        className="log-in-button"
       />
     );
   }

@@ -1,7 +1,79 @@
 #logged-out-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(118.29% 118.29% at 101.69% 103.62%, #09C053 0%, rgba(0, 0, 0, 0) 100%), #1C1C1C;
+  padding: 35px 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+#login-page-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+#links-container {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+
+#sign-in-header {
+  font-size: 64px;
+  font-family: roc-grotesk, sans-serif;
+  font-weight: 800;
+  line-height: 60px;
+  max-width: 70vw;
+  margin: 0;
+}
+
+#sign-in-subtext {
+  font-size: 24px;
+  max-width: 50vw;
+  line-height: 28px;
+  margin-bottom: 20px;
+}
+
+.log-in-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: none;
+  border: 5px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 15px;
+  color: white;
+  z-index: 10;
+  width: fit-content;
+}
+
+.log-in-button:hover {
+  background: rgba(255, 255, 255, .3);
+  text-decoration: underline;
+}
+
+.pn-logo-text {
+  font-family: 'Roc Grotesk';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+}
+
+#ninja-image {
+  position: absolute;
+  right: -250px;
+  bottom: -60px;
+  background-blend-mode: darken;
+  transform: rotate(2.97deg);
+  width: auto;
+  height: 105vh;
+  filter: opacity(.8);
 }

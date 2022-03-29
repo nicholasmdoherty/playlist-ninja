@@ -10,3 +10,9 @@
   font-style: normal;
   padding-top: 0.25em !important;
 }
+
+
+body {
+  background: radial-gradient(147.81% 152.95% at 88.99% 0%, #1b1b1b 0%, rgba(0, 0, 0, 0) 100%), #1C1C1C;
+  color: white;
+}

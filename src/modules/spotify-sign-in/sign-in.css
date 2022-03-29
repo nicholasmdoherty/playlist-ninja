@@ -61,7 +61,7 @@
 }
 
 .pn-logo-text {
-  font-family: 'Roc Grotesk';
+  font-family: roc-grotesk, sans-serif;
   font-style: normal;
   font-weight: 800;
   font-size: 24px;

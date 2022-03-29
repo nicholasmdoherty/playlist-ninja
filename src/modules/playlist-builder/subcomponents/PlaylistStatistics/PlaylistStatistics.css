@@ -5,7 +5,7 @@
 } 
 
 .playlist-stats-header {
-  font-family: 'Roc Grotesk';
+  font-family: roc-grotesk, sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
@@ -54,7 +54,7 @@
 }
 
 .playlist-stats-font {
-  font-family: 'Roc Grotesk';
+  font-family: roc-grotesk, sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 20px;

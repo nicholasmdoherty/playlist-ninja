@@ -17,7 +17,7 @@ class SpotifyLoginButton extends Component {
 
     // Set the token in cookies, we want to make sure that this happens first so we await it.
     await setCookie("spotifyAccessToken", token, 1);
-    document.location.reload();
+    document.location.reload()
   }
 
   render() {

@@ -97,7 +97,7 @@ class PlaylistTracklist extends Component {
         <div className="tracklist-button-row">
           {this.renderPaginationButton()}
           {/*this.renderSearchBar()}
-          {this.renderSortDropdown()*/}
+           {this.renderSortDropdown()*/}
         </div>
         <div className="card-style tracklist-card">
           <TrackTable

@@ -43,7 +43,6 @@ const MyPlaylists = ({ title, userId, api, playlists, loadEditablePlaylists, upd
   }, [playlists])
 
   if (error) {
-    console.log(error)
     return 'Error'
   }
 

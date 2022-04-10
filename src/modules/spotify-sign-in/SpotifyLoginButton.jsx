@@ -27,7 +27,7 @@ class SpotifyLoginButton extends Component {
         clientId={clientID}
         redirectUri={redirectURI}
         onSuccess={this.handleAccessToken}
-        onFailure={(error) => console.log(error)}
+        onFailure={(error) => console.error(error)}
         scope={spotifyScopes}
         id="login-button"
         className="log-in-button"

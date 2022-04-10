@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build for Github Pages
 on:
   push:
     branches:
@@ -7,10 +7,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checking out
         uses: actions/checkout@v2.3.1
 
-      - name: Install and Build 🔧
+      - name: Installing and Building
         run: |
           npm install
           CI=false npm run-script build
@@ -19,7 +19,7 @@ jobs:
           REACT_APP_REDIRECT_URL: ${{ secrets.REACT_APP_REDIRECT_URL }}
           REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
 
-      - name: Deploy 🚀
+      - name: Deploying to gh-pages branch
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages

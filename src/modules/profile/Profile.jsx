@@ -39,10 +39,10 @@ class Profile extends Component {
         <div className="profile-wrapper">
           <span className='profile-header'>My Profile</span>
           <Row>
-            <Col xs={7}>
+            <Col xs={12} md={7}>
               <MyPlaylists title="My Playlists" userId={profile.id} />
             </Col>
-            <Col xs={5} className="top-tracks-artists-col">
+            <Col xs={12} md={5} className="top-tracks-artists-col">
               <TopArtists />
               <TopTracks />
             </Col>

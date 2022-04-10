@@ -10,8 +10,6 @@ const PlaylistStatistics = ({ playlist, api }) => {
 
   const [activeView, setActiveView] = useState('song_information')
 
-  console.log(playlist)
-
   /**
    * Calculates the average music statistics from Spotify for this playlist.
    */
@@ -168,8 +166,6 @@ const PlaylistStatistics = ({ playlist, api }) => {
   if (loading) {
     return 'Loading...'
   }
-
-  console.log(playlistStats)
 
   return (
     <div className='playlist-stats-container'>

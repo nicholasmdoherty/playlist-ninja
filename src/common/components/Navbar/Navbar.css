@@ -60,7 +60,14 @@
   border-radius: 15px;
 }
 
+.navlink-container {
+  display: flex;
+  gap: 15px;
+}
+
 .spotify-account-pic {
+  width: 25px;
+  height: 25px;
   border-radius: 12px;
 }
 
@@ -71,4 +78,60 @@
 
 .nav-link-active {
   font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .main-app-nav {
+    padding: 20px;
+  }
+
+  .nav-app-name {
+    font-size: 16px;
+  }
+
+  .nav-right-link {
+    font-size: 14px;
+  }
+
+  .nav-right-username {
+    font-size: 12px;
+  }
+
+  .spotify-account-pic {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+  }
+
+  .nav-right-container {
+    flex-wrap: wrap-reverse;
+  }
+
+  .navlink-container {
+    gap: 10px;
+  }
+
+  .nav-right-container {
+    gap: 10px;
+    justify-content: flex-end;
+  }
+}
+
+.main-app-nav.mobile {
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobile-nav-first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.mobile-nav-second-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

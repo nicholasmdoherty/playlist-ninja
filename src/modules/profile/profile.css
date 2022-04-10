@@ -20,3 +20,16 @@
   flex-direction: column;
   gap: 20px;
 }
+
+@media (max-width: 768px) {
+  .profile-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .profile-header {
+    font-size: 30px;
+    line-height: 32px;
+  }
+
+}

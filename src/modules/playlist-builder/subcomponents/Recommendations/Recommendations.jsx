@@ -1,57 +1,72 @@
-import React, { Component } from "react";
+import React, { Component, useCallback, useState } from "react";
 import TrackTable from "../Tracklist/TrackTable";
 import { connect } from "react-redux";
-import { Form, Button, Row, Col } from "react-bootstrap";
 import autoBind from "react-autobind";
 import Slider from "rc-slider";
 import { setSelectedPlaylist } from "../../../../redux/actions/playlistActions";
 import FeatherIcon from 'feather-icons-react'
 
 import './Recommendations.css'
+import SelectModal from "../../../../common/components/SelectModal/SelectModal";
 
-class Recommendations extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      activeView: "input",
-      recommendedTracks: [],
-      selectedArtistSeeds: {
-        0: "",
-        1: "",
-        2: "",
-      },
-      selectedTrackSeeds: {
-        0: "",
-        1: "",
-        2: "",
-      },
-      targetValence: 0.5,
-      targetEnergy: 0.5,
-      targetDanceability: 0.5,
-      targetBPM: 100,
-      targetPopularity: 50,
-      error: null,
-    };
 
-    autoBind(this);
+const Recommendations = ({ api, playlistId, setSelectedPlaylist, playlistTracks }) => {
 
-    window.addEventListener("resize", () => {
-      this.forceUpdate();
-    });
-  }
+  const [activeView, setActiveView] = useState('input')
+  const [modalOpen, setModalOpen] = useState(false)
+  const [activeModal, setActiveModal] = useState('artists')
+  const [recommendedTracks, setRecommendedTracks] = useState([])
 
-  componentDidMount() {
-    this.handleRecommendationGeneration();
-  }
+  const [selectedArtistSeeds, setSelectedArtistSeeds] = useState([])
+  const [selectedTrackSeeds, setSelectedTrackSeeds] = useState([])
+  const [targetValence, setTargetValence] = useState(null)
+  const [targetEnergy, setTargetEnergy] = useState(null)
+  const [targetDanceability, setTargetDanceability] = useState(null)
+  const [targetBPM, setTargetBPM] = useState(null)
+  const [targetPopularity, setTargetPopularity] = useState(null)
+  
+  const [error, setError] = useState(null)
 
   /**
-   * A method to update the selected playlist. It calls the redux action to load a selected playlist with this playlist's id.
+   * A method to update the selected playlist. It calls the redux 
+   * action to load a selected playlist with this playlist's id.
    */
-  updateSelectedPlaylist() {
-    let { api, playlistId, setSelectedPlaylist } = this.props;
+  const updateSelectedPlaylist = useCallback(() => {
     setSelectedPlaylist(playlistId, api);
-  }
+  }, [setSelectedPlaylist, playlistId, api])
+
+  /**
+   * Updates the recommendations for the playlist with the currently
+   * selected values and seeds and updates the table.
+   *
+   * @returns void
+   */
+  const updateRecommendations = useCallback(() => {
+    let query = {
+      limit: 15,
+      seed_artists: selectedArtistSeeds.map((selection) => selection.value),
+      seed_tracks: selectedTrackSeeds.map((selection) => selection.value)
+    }
+
+    if (targetBPM) query["target_bpm"] = targetBPM
+    if (targetValence) query["target_valence"] = targetValence
+    if (targetEnergy) query["target_energy"] = targetEnergy
+    if (targetDanceability) query["target_danceability"] = targetDanceability
+    if (targetPopularity) query["target_popularity"] = targetPopularity
+
+    api.getRecommendations(query).then(
+      (data) => {
+        setRecommendedTracks(data.body.tracks)
+        setError(null)
+        setActiveView('songs')
+      },
+      (error) => {
+        setError(error.message)
+        setActiveView('songs')
+      }
+    );
+  }, [api, selectedArtistSeeds, selectedTrackSeeds, targetBPM, targetDanceability, targetEnergy, targetPopularity, targetValence])
 
   /**
    * Determines whether or not we should generate recommendations.
@@ -60,86 +75,19 @@ class Recommendations extends Component {
    *
    * @returns void
    */
-  handleRecommendationGeneration() {
-    let { selectedArtistSeeds, selectedTrackSeeds } = this.state;
-
+  const handleRecommendationGeneration = useCallback(() => {
     let atLeastOneSeedSelected = false;
 
-    Object.keys(selectedArtistSeeds).forEach((index) => {
-      if (selectedArtistSeeds[index] !== "") {
-        atLeastOneSeedSelected = true;
-      }
-    });
-
-    if (!atLeastOneSeedSelected) {
-      Object.keys(selectedTrackSeeds).forEach((index) => {
-        if (selectedTrackSeeds[index] !== "") {
-          atLeastOneSeedSelected = true;
-        }
-      });
+    if (selectedArtistSeeds.length + selectedTrackSeeds.length > 0) {
+      atLeastOneSeedSelected = true
     }
 
     if (atLeastOneSeedSelected) {
-      this.updateRecommendations();
+      updateRecommendations();
     } else {
-      this.setState({
-        error: "You must choose at least one seed for recommendations.",
-      });
+      setError('You must choose at least one similar artist or track for recommendations')
     }
-  }
-
-  /**
-   * Updates the recommendations for the playlist with the currently
-   * selected values and seeds and updates the table.
-   *
-   * @returns void
-   */
-  updateRecommendations() {
-    let { api } = this.props;
-    let {
-      selectedArtistSeeds,
-      selectedTrackSeeds,
-      targetValence,
-      targetEnergy,
-      targetDanceability,
-      targetBPM,
-      targetPopularity,
-    } = this.state;
-
-    let seedArtistIds = [];
-    Object.keys(selectedArtistSeeds).forEach((seedIndex) => {
-      if (selectedArtistSeeds[seedIndex] !== "") {
-        seedArtistIds.push(selectedArtistSeeds[seedIndex]);
-      }
-    });
-
-    let seedTrackIds = [];
-    Object.keys(selectedTrackSeeds).forEach((seedIndex) => {
-      if (selectedTrackSeeds[seedIndex] !== "") {
-        seedTrackIds.push(selectedTrackSeeds[seedIndex]);
-      }
-    });
-
-    let query = {
-      limit: 15,
-      target_bpm: targetBPM,
-      target_valence: targetValence,
-      target_energy: targetEnergy,
-      target_danceability: targetDanceability,
-      target_popularity: targetPopularity,
-      seed_artists: seedArtistIds,
-      seed_tracks: seedTrackIds,
-    };
-
-    api.getRecommendations(query).then(
-      (data) => {
-        this.setState({ recommendedTracks: data.body.tracks, error: null, activeView: 'songs' });
-      },
-      (error) => {
-        this.setState({ error: error.message, activeView: 'songs' });
-      }
-    );
-  }
+  }, [selectedArtistSeeds.length, selectedTrackSeeds.length, updateRecommendations])
 
   /**
    * Method to see if all the seeds for recommendations are filled since
@@ -147,173 +95,82 @@ class Recommendations extends Component {
    *
    * @returns a boolean representing whether or not we have the max amounts of seeds.
    */
-  numberOfSeedsFull() {
-    let { selectedArtistSeeds, selectedTrackSeeds } = this.state;
+  const numberOfSeedsFull = useCallback(() => {
+    return selectedArtistSeeds.length + selectedTrackSeeds.length >= 5
+  }, [selectedArtistSeeds.length, selectedTrackSeeds.length])
 
-    let artistSeeds = [];
-    let trackSeeds = [];
-
-    [0, 1, 2].forEach((seedIndex) => {
-      if (selectedArtistSeeds[seedIndex] !== "") {
-        artistSeeds.push(selectedArtistSeeds[seedIndex]);
-      }
-
-      if (selectedTrackSeeds[seedIndex] !== "") {
-        trackSeeds.push(selectedTrackSeeds[seedIndex]);
-      }
-    });
-
-    return artistSeeds.length + trackSeeds.length >= 5;
-  }
-
-  /**
-   * Returns an event handler that sets the seed track with the given
-   * index to the value of the event's target.
-   *
-   * @param {number} index The index of the seed artist to change.
-   */
-  handleAddSeedArtist(index) {
-    return (event) => {
-      this.setState({
-        selectedArtistSeeds: {
-          ...this.state.selectedArtistSeeds,
-          [index]: event.target.value,
-        },
-      });
-    };
-  }
-
-  /**
-   * Renders the dropdown menus for selecting seed artists.
-   *
-   * @returns JSX.Element
-   */
-  renderSeedArtistsDropdown() {
-    let { playlistTracks } = this.props;
-
-    let artists = {};
-
-    playlistTracks.forEach((playlistTrack) => {
-      playlistTrack.track.artists.forEach((artist) => {
-        artists[artist.id] = artist.name;
-      });
-    });
-
-    let artistIdArray = Object.keys(artists);
-
+  const renderSeedArtistSelection = useCallback(() => {
     return (
-      <div className="input-container">
+      <div className="seed-selection-container">
         <span className="input-label">Similar Artists (up to 3)</span>
-
-        <div className='dropdowns-container'>
-          {[1, 2, 3].map((seedNumber) => {
-            let { selectedArtistSeeds } = this.state;
-
+        <div className="seed-selection-row">
+          {selectedArtistSeeds.map((selectedSeed, index) => {
             return (
-              <div className="dropdown-container">
-                <select
-                  key={seedNumber - 1}
-                  as="select"
-                  onChange={this.handleAddSeedArtist(seedNumber - 1)}
-                  disabled={
-                    selectedArtistSeeds[seedNumber - 1] === "" &&
-                    this.numberOfSeedsFull()
-                  }
-                  className="similar-dropdown"
-                >
-                  <option value="">None</option>
-                  {artistIdArray.map((artistId) => {
-                    return (
-                      <option value={artistId}>{artists[artistId]}</option>
-                    );
-                  })}
-                </select>
-                <FeatherIcon className='dropdown-arrow' icon="chevron-down" width={16} height={16} />
+              <div className="selected-seed">
+                {selectedSeed.displayName}
+                <FeatherIcon 
+                  className="selected-seed-remove" 
+                  icon={"x"} 
+                  width={16} 
+                  height={16}
+                  onClick={() => { setSelectedArtistSeeds(selectedArtistSeeds.filter((_, i) => i !== index)) }}
+                />
               </div>
-            );
+            )
           })}
+          {!numberOfSeedsFull() && 
+            <div 
+              className="seed-selection-button"
+              onClick={() => {
+                setActiveModal('artists')
+                setModalOpen('true')
+              }}
+            >
+              <FeatherIcon icon={"plus"} width={16} height={16} />
+            </div>
+          }
         </div>
       </div>
-    );
-  }
+    )
+  }, [numberOfSeedsFull, selectedArtistSeeds])
 
-  /**
-   * Returns an event handler that sets the seed track with the given
-   * index to the value of the event's target.
-   *
-   * @param {number} index The index of the seed track to change.
-   */
-  handleAddSeedTrack(index) {
-    return (event) => {
-      this.setState({
-        selectedTrackSeeds: {
-          ...this.state.selectedTrackSeeds,
-          [index]: event.target.value,
-        },
-      });
-    };
-  }
 
-  /**
-   * Renders the dropdown menus for selecting seed tracks.
-   *
-   * @returns JSX.Element
-   */
-  renderSeedTracksDropdown() {
-    let { playlistTracks } = this.props;
-
-    let tracks = {};
-
-    playlistTracks.forEach((playlistTrack) => {
-      let track = playlistTrack.track;
-
-      tracks[track.id] = track.name;
-    });
-
-    let trackIdArray = Object.keys(tracks);
-
+  const renderSeedTracksDropdown = useCallback(() => {
     return (
-      <div className="input-container">
+      <div className="seed-selection-container">
         <span className="input-label">Similar Tracks (up to 3)</span>
-        <div className="dropdowns-container">
-          {[1, 2, 3].map((seedNumber) => {
-            let { selectedTrackSeeds } = this.state;
-
+        <div className="seed-selection-row">
+          {selectedTrackSeeds.map((selectedSeed, index) => {
             return (
-              <div className="dropdown-container">
-                <select
-                  key={seedNumber - 1}
-                  as="select"
-                  onChange={this.handleAddSeedTrack(seedNumber - 1)}
-                  disabled={
-                    selectedTrackSeeds[seedNumber - 1] === "" &&
-                    this.numberOfSeedsFull()
-                  }
-                  className="similar-dropdown"
-                >
-                  <option value="">None</option>
-                  {trackIdArray.map((trackId) => {
-                    return (
-                      <option value={trackId}>{tracks[trackId]}</option>
-                    );
-                  })}
-                </select>
-                <FeatherIcon className='dropdown-arrow' icon="chevron-down" width={16} height={16} />
+              <div className="selected-seed">
+                {selectedSeed.displayName}
+                <FeatherIcon 
+                  className="selected-seed-remove" 
+                  icon={"x"} 
+                  width={16} 
+                  height={16}
+                  onClick={() => { setSelectedTrackSeeds(selectedTrackSeeds.filter((_, i) => i !== index)) }}
+                />
               </div>
-            );
+            )
           })}
+          {!numberOfSeedsFull() && 
+            <div 
+              className="seed-selection-button"
+              onClick={() => {
+                setActiveModal('tracks')
+                setModalOpen('true')
+              }}
+            >
+              <FeatherIcon icon={"plus"} width={16} height={16} />
+            </div>
+          }
         </div>
-     </div>
-    );
-  }
+      </div>
+    )
+  }, [numberOfSeedsFull, selectedTrackSeeds])
 
-  /**
-   * Renders the sliders for selecting target audio features for the
-   * recommended tracks.
-   *
-   * @returns JSX.Element
-   */
-  renderAudioFeatureSliders() {
+  const renderAudioFeatureSliders = useCallback(() => {
     return (
       <div className="audio-feature-input">
         <div className='input-container'>
@@ -323,10 +180,8 @@ class Recommendations extends Component {
             max={100}
             step={1}
             defaultValue={50}
-            value={this.state.targetDanceability * 100}
-            onChange={(value) =>
-              this.setState({ targetDanceability: value / 100 })
-            }
+            value={targetDanceability ? targetDanceability * 100 : 0}
+            onChange={(value) => value ? setTargetDanceability(value / 100) : setTargetDanceability(null) }
             className="audio-slider"
           />
         </div>
@@ -337,8 +192,8 @@ class Recommendations extends Component {
             max={100}
             step={1}
             defaultValue={50}
-            value={this.state.targetEnergy * 100}
-            onChange={(value) => this.setState({ targetEnergy: value / 100 })}
+            value={targetEnergy ? targetEnergy * 100 : 0}
+            onChange={(value) => value ? setTargetEnergy(value / 100) : setTargetEnergy(null)}
             className="audio-slider"
           />
         </div>
@@ -350,8 +205,8 @@ class Recommendations extends Component {
             max={100}
             step={1}
             defaultValue={50}
-            value={this.state.targetValence * 100}
-            onChange={(value) => this.setState({ targetValence: value / 100 })}
+            value={targetValence ? targetValence * 100 : 0}
+            onChange={(value) => value ? setTargetValence(value / 100) : setTargetValence(null)}
             className="audio-slider"
           />
         </div>
@@ -363,8 +218,8 @@ class Recommendations extends Component {
             max={250}
             step={1}
             defaultValue={100}
-            value={this.state.targetBPM}
-            onChange={(value) => this.setState({ targetBPM: value })}
+            value={targetBPM ? targetBPM : 0}
+            onChange={(value) => value ? setTargetBPM(value) : setTargetBPM(null)}
             className="audio-slider"
           />
         </div>
@@ -376,67 +231,123 @@ class Recommendations extends Component {
             max={100}
             step={1}
             defaultValue={100}
-            value={this.state.targetPopularity}
-            onChange={(value) => this.setState({ targetPopularity: value })}
+            value={targetPopularity ? targetPopularity : 0}
+            onChange={(value) => value ? setTargetPopularity(value) : setTargetEnergy(null)}
             className="audio-slider"
           />
         </div>
       </div>
     );
-  }
+  }, [targetBPM, targetDanceability, targetEnergy, targetPopularity, targetValence])
 
-  render() {
-    let { error } = this.state;
 
-    return (
-      <div className="recommendations-container">
-        <span className="recommendations-header">Generate Recommendations</span>
-        <div className="recommendations-tab-row">
-          <div 
-            className={`recommendations-tab ${this.state.activeView === 'input' ? 'active' : ''}`}
-            onClick={() => {this.setState({ activeView: 'input' })}}
-          >
-            Recommendations Input
-          </div>
-          <div 
-            className={`recommendations-tab ${this.state.activeView === 'songs' ? 'active' : ''}`}
-            onClick={() => {this.setState({ activeView: 'songs' })}}
-          >
-            Recommended Songs
-          </div>
+  const getTrackSeedSelectionList = useCallback(() => {
+    let tracks = [];
+
+    playlistTracks.forEach((playlistTrack) => {
+      let track = playlistTrack.track;
+
+      tracks.push({displayName: track.name, value: track.id})
+    });
+
+    return tracks
+  }, [playlistTracks])
+
+  const getArtistSeedSelectionList = useCallback(() => {
+    let artists = [];
+
+    playlistTracks.forEach((playlistTrack) => {
+      playlistTrack.track.artists.forEach((artist) => {
+        artists.push({displayName: artist.name, value: artist.id})
+      });
+    });
+
+    return artists
+  }, [playlistTracks])
+
+
+  // Rendering the whole component
+  return (
+    <div className="recommendations-container">
+      <span className="recommendations-header">Generate Recommendations</span>
+      <div className="recommendations-tab-row">
+        <div 
+          className={`recommendations-tab ${activeView === 'input' ? 'active' : ''}`}
+          onClick={() => setActiveView('input')}
+        >
+          Recommendations Input
         </div>
-        {this.state.activeView === 'input' && (
-          <div className="recommendations-main-card card-style">
-            {this.renderSeedTracksDropdown()}
-            {this.renderSeedArtistsDropdown()}
-            {this.renderAudioFeatureSliders()}
-            <div className="recommendations-button" onClick={this.handleRecommendationGeneration}>
-              Generate Recommendations
-            </div>
-          </div>
-        )}
-        {this.state.activeView === 'songs' && (
-          <div className="card-style">
-            {error && (
-              <div className="text-center mt-2">
-                <h5 className="p-3 lead text-danger">
-                  <i className="fa fa-exclamation-triangle"></i> {error}
-                </h5>
-              </div>
-            )}
-            {!error && (
-                <TrackTable
-                  playlistId={this.props.playlistId}
-                  tracks={this.state.recommendedTracks}
-                  updateCallback={this.updateSelectedPlaylist}
-                />
-            )}
-          </div>
-        )}
+        <div 
+          className={`recommendations-tab ${activeView === 'songs' ? 'active' : ''}`}
+          onClick={() => setActiveView('songs')}
+        >
+          Recommended Songs
+        </div>
       </div>
-    );
-  }
+      {activeView === 'input' && (
+        <div className="recommendations-main-card card-style">
+          {renderSeedTracksDropdown()}
+          {renderSeedArtistSelection()}
+          {renderAudioFeatureSliders()}
+          <div className="recommendations-button" onClick={handleRecommendationGeneration}>
+            Generate Recommendations
+          </div>
+          {error && (
+            <div className="text-center">
+              <h5 className="lead text-danger">
+                <i className="fa fa-exclamation-triangle"></i> {error}
+              </h5>
+            </div>
+          )}
+        </div>
+      )}
+      {activeView === 'songs' && (
+        <div className="card-style">
+          {recommendedTracks.length === 0 && (
+            <div className="recommendations-main-card card-style text-center">
+              <span>Looks like you haven't generated any recommendations yet.</span>
+            </div>
+          )}
+          {!error && recommendedTracks.length > 0 && (
+              <TrackTable
+                playlistId={playlistId}
+                tracks={recommendedTracks}
+                updateCallback={updateSelectedPlaylist}
+              />
+          )}
+        </div>
+      )}
+      { 
+        modalOpen && 
+        activeModal === "artists" && <SelectModal 
+                                        title="Add Similar Artist" 
+                                        selectionList={getArtistSeedSelectionList()}
+                                        buttonText="Select Artist"
+                                        returnSelection={(selection) => { 
+                                          setSelectedArtistSeeds(selectedArtistSeeds.concat([selection])) 
+                                          setModalOpen(false)
+                                        }}
+                                        closeModal={() => setModalOpen(false)}
+                                      />
+      }
+      { 
+        modalOpen && 
+        activeModal === "tracks" && <SelectModal 
+                                      title="Add Similar Track" 
+                                      selectionList={getTrackSeedSelectionList()}
+                                      buttonText="Select Track"
+                                      returnSelection={(selection) => { 
+                                        setSelectedTrackSeeds(selectedTrackSeeds.concat([selection])) 
+                                        setModalOpen(false)
+                                      }}
+                                      closeModal={() => setModalOpen(false) }
+                                    />
+      }
+    </div>
+  );
+
 }
+
 
 /**
  * Maps the spotify api to the props of the recommendations component so that

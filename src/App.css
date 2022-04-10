@@ -1,0 +1,18 @@
+.arabesque-font {
+  font-family: hwt-arabesque, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.arts-and-crafts-font {
+  font-family: p22-arts-and-crafts-hunter, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  padding-top: 0.25em !important;
+}
+
+
+body {
+  background: radial-gradient(147.81% 152.95% at 88.99% 0%, #1b1b1b 0%, rgba(0, 0, 0, 0) 100%), #1C1C1C;
+  color: white;
+}

@@ -1,0 +1,63 @@
+#playlist-builder-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 75px;
+}
+
+.edit-playlist-header {
+  font-family: roc-grotesk, sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 92px;
+  letter-spacing: 0.04em;
+}
+
+.no-selected-playlist {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.playlist-info-card {
+  display: flex;
+  overflow: hidden;
+}
+
+.playlist-info-card-inner {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.playlist-info-card-name {
+  font-family: roc-grotesk, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 35px;
+}
+
+.playlist-info-card-name-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.playlist-info-card-button-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.spotify-link {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 10px 15px;
+}

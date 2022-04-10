@@ -1,0 +1,133 @@
+#logged-out-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(118.29% 118.29% at 101.69% 103.62%, #555555 0%, rgba(0, 0, 0, 0) 100%), #1C1C1C;
+  padding: 35px 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+#login-page-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+#links-container {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  z-index: 10;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon-link {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.icon-link:hover {
+  cursor: pointer;
+  color: #09C053;
+}
+
+#image-attribution-link {
+  color:#141414;
+  font-size: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+#image-attribution-link:hover {
+  color: #09C053;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+#sign-in-header {
+  font-size: 64px;
+  font-family: roc-grotesk, sans-serif;
+  font-weight: 800;
+  line-height: 60px;
+  max-width: 70vw;
+  margin: 0;
+}
+
+#sign-in-subtext {
+  font-size: 24px;
+  max-width: 50vw;
+  line-height: 28px;
+  margin-bottom: 20px;
+}
+
+.log-in-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: none;
+  border: 5px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 15px;
+  color: white;
+  z-index: 10;
+  width: fit-content;
+}
+
+.log-in-button:hover {
+  background: rgba(255, 255, 255, .3);
+  text-decoration: underline;
+}
+
+.pn-logo-text {
+  font-family: roc-grotesk, sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+}
+
+#ninja-image {
+  position: absolute;
+  right: -300px;
+  bottom: -30px;
+  background-blend-mode: darken;
+  width: auto;
+  height: 105vh;
+  filter: opacity(.4);
+}
+
+@media (max-width: 768px) {
+  #logged-out-wrapper {
+    padding: 25px 35px;
+  }
+
+  #sign-in-header {
+    font-size: 30px;
+    font-family: roc-grotesk, sans-serif;
+    font-weight: 800;
+    line-height: 32px;
+    max-width: 70vw;
+    margin: 0;
+  }
+  
+  #sign-in-subtext {
+    font-size: 12px;
+    max-width: 50vw;
+    line-height: 14px;
+    margin-bottom: 20px;
+  }
+
+  .pn-logo-text {
+    font-size: 16px;
+  }
+
+  .icon-link {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,137 @@
+.main-app-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+  min-height: 50px;
+  color: white;
+  z-index: 1000;
+  padding: 30px 50px 30px 50px;
+  align-items: center;
+}
+
+.main-nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-nav-icon-desktop {
+  font-size: 2em;
+  color: white;
+}
+
+.main-nav-icon-phone {
+  font-size: 1.4em;
+  color: white;
+}
+
+.nav-app-name {
+  font-family: roc-grotesk, sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+}
+
+.nav-right-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-right-link {
+  color: white;
+}
+
+.nav-right-link:hover {
+  color: #09C053;
+  text-decoration: underline;
+}
+
+.nav-right-logged-in-user {
+  background: #353535;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+
+.navlink-container {
+  display: flex;
+  gap: 15px;
+}
+
+.spotify-account-pic {
+  width: 25px;
+  height: 25px;
+  border-radius: 12px;
+}
+
+.logout-button:hover {
+  cursor: pointer;
+  color: #E74040;
+}
+
+.nav-link-active {
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .main-app-nav {
+    padding: 20px;
+  }
+
+  .nav-app-name {
+    font-size: 16px;
+  }
+
+  .nav-right-link {
+    font-size: 14px;
+  }
+
+  .nav-right-username {
+    font-size: 12px;
+  }
+
+  .spotify-account-pic {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+  }
+
+  .nav-right-container {
+    flex-wrap: wrap-reverse;
+  }
+
+  .navlink-container {
+    gap: 10px;
+  }
+
+  .nav-right-container {
+    gap: 10px;
+    justify-content: flex-end;
+  }
+}
+
+.main-app-nav.mobile {
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobile-nav-first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.mobile-nav-second-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

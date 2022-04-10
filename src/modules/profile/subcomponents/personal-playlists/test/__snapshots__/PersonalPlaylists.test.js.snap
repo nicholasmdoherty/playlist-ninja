@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`PersonalPlaylists.jsx matches the snapshot for empty props 1`] = `null`;

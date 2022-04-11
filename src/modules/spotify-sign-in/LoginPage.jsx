@@ -9,7 +9,7 @@ const LoginPage = () => {
   return (
     <div id="logged-out-wrapper">
       <img id="ninja-image" src="/assets/ninja-login.svg" />
-      <span className="pn-logo-text">playlistninja.app</span>
+      <img src="/assets/playlistninja-nav-logo.svg" height="32px" width="auto"/>
       <div id='login-page-text'>
         <h1 id="sign-in-header">
           More control over Spotify recommendations.

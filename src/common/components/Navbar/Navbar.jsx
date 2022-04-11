@@ -35,7 +35,7 @@ const Navbar = ({ api, setUserIdInRedux }) => {
       <div>
         <div className="main-app-nav mobile">
           <div className="mobile-nav-first-row">
-            <span className="nav-app-name">playlistninja.app</span>
+            <img src="/assets/playlistninja-nav-logo.svg" height="32px" width="auto"/>
     
             <div className="nav-right-container">
               <div className="nav-right-logged-in-user">
@@ -73,7 +73,7 @@ const Navbar = ({ api, setUserIdInRedux }) => {
   return (
     <div>
       <div className="main-app-nav">
-        <span className="nav-app-name">playlistninja.app</span>
+        <img src="/assets/playlistninja-nav-logo.svg" height="32px" width="auto"/>
 
         <div className="nav-right-container">
           <span className="navlink-container">
